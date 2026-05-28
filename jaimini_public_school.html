@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jaimini Public School — Shaping Tomorrow's Leaders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:       #0C1A3E;
+    --navy-mid:   #0F2560;
+    --gold:       #38BDF8;
+    --gold-lt:    #BAE6FD;
+    --gold-pale:  #E0F2FE;
+    --white:      #FFFFFF;
+    --off-white:  #F8FBFF;
+    --gray-100:   #EBF5FF;
+    --gray-300:   #BAE6FD;
+    --gray-500:   #64748B;
+    --gray-700:   #334155;
+    --text:       #0C1A3E;
+    --radius:     14px;
+    --radius-sm:  8px;
+    --font-head:  'Playfair Display', Georgia, serif;
+    --font-body:  'DM Sans', sans-serif;
+    --shadow:     0 4px 32px rgba(12,26,62,0.12);
+    --shadow-lg:  0 12px 60px rgba(12,26,62,0.18);
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 72px;
+    background: rgba(12,26,62,0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(56,189,248,0.25);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; cursor: pointer; }
+  .nav-emblem {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, #38BDF8, #BAE6FD);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-head); font-size: 13px; font-weight: 700;
+    color: #0C1A3E; letter-spacing: -0.5px;
+  }
+  .nav-name { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: #38BDF8; letter-spacing: 0.2px; text-shadow: 0 0 16px rgba(56,189,248,0.6); }
+  .nav-name span { color: #38BDF8; text-shadow: none; font-weight: 700; }
+  .nav-links { display: flex; align-items: center; gap: 36px; }
+  .nav-links a { font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; letter-spacing: 0.3px; transition: color 0.2s; }
+  .nav-links a:hover { color: #BAE6FD; }
+  .nav-apply {
+    background: #38BDF8; color: #0C1A3E;
+    font-family: var(--font-body); font-size: 13.5px; font-weight: 600;
+    padding: 9px 24px; border-radius: 99px; border: none; cursor: pointer; align-self: center;
+    letter-spacing: 0.2px; transition: background 0.2s, transform 0.15s;
+  }
+  .nav-apply:hover { background: #0284C7; transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero { scroll-margin-top: 72px;
+    min-height: 100vh;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 48px;
+    padding: 120px 64px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg-pattern {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(255,255,255,0) 0%, transparent 70%),
+      repeating-linear-gradient(45deg, rgba(56,189,248,0.04) 0px, rgba(56,189,248,0.04) 1px, transparent 1px, transparent 40px),
+      repeating-linear-gradient(-45deg, rgba(56,189,248,0.04) 0px, rgba(56,189,248,0.04) 1px, transparent 1px, transparent 40px);
+  }
+  .hero-glow {
+    position: absolute; top: -120px; right: -80px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(56,189,248,0.12) 0%, transparent 70%);
+    z-index: 0;
+  }
+  .hero-content {
+    position: relative; z-index: 1;
+    flex: 1;
+    max-width: 580px;
+  }
+  .hero-kids {
+    position: relative; z-index: 2;
+    flex: 0 0 460px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    animation: fadeUp 1s 0.5s ease both;
+  }
+
+  /* ── COLLAGE ── */
+  .collage {
+    position: relative;
+    width: 460px;
+    height: 500px;
+  }
+
+  /* Each card is a photo frame */
+  .photo-card {
+    position: absolute;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 0 3px rgba(255,255,255,0.08);
+    transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s ease, z-index 0s;
+    cursor: pointer;
+    background: #0a1628;
+  }
+  .photo-card:hover {
+    box-shadow: 0 28px 72px rgba(0,0,0,0.15), 0 0 0 3px rgba(56,189,248,0.6);
+    z-index: 20 !important;
+  }
+  .photo-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .photo-card:hover img { transform: scale(1.08); }
+
+  /* Label overlay at bottom */
+  .photo-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 28px 14px 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 100%);
+  }
+  .photo-tag {
+    display: inline-block;
+    background: rgba(56,189,248,0.92);
+    color: #0B1D3A;
+    font-family: var(--font-body);
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 99px;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  /* Card positions, sizes, tilts */
+  .card1 {
+    width: 210px; height: 215px;
+    top: 0; left: 0; z-index: 3;
+    transform: rotate(-5deg);
+    animation: floatA 5.2s ease-in-out infinite;
+  }
+  .card2 {
+    width: 220px; height: 200px;
+    top: 10px; right: 0; z-index: 2;
+    transform: rotate(5deg);
+    animation: floatB 5.8s ease-in-out infinite;
+  }
+  .card3 {
+    width: 215px; height: 208px;
+    bottom: 20px; left: 15px; z-index: 2;
+    transform: rotate(4deg);
+    animation: floatC 6.2s ease-in-out infinite;
+  }
+  .card4 {
+    width: 225px; height: 218px;
+    bottom: 0; right: 5px; z-index: 3;
+    transform: rotate(-4deg);
+    animation: floatD 4.9s ease-in-out infinite;
+  }
+
+  @keyframes floatA { 0%,100%{transform:rotate(-5deg) translateY(0)}    50%{transform:rotate(-5deg) translateY(-14px)} }
+  @keyframes floatB { 0%,100%{transform:rotate(5deg)  translateY(-10px)} 50%{transform:rotate(5deg)  translateY(8px)} }
+  @keyframes floatC { 0%,100%{transform:rotate(4deg)  translateY(0)}     50%{transform:rotate(4deg)  translateY(-12px)} }
+  @keyframes floatD { 0%,100%{transform:rotate(-4deg) translateY(-8px)}  50%{transform:rotate(-4deg) translateY(8px)} }
+
+  /* Centre badge */
+  .collage-badge {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 30;
+  }
+  .collage-badge-ring {
+    width: 86px; height: 86px; border-radius: 50%;
+    background: linear-gradient(135deg, #38BDF8, #BAE6FD);
+    display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: center;
+    box-shadow: 0 0 0 5px rgba(56,189,248,0.25),
+                0 0 0 10px rgba(56,189,248,0.10),
+                0 12px 32px rgba(0,0,0,0.5);
+    animation: pulseBadge 2.5s ease-in-out infinite;
+  }
+  @keyframes pulseBadge {
+    0%,100%{ box-shadow: 0 0 0 5px rgba(56,189,248,0.25), 0 0 0 10px rgba(56,189,248,0.10), 0 12px 32px rgba(0,0,0,0.5); }
+    50%{     box-shadow: 0 0 0 8px rgba(56,189,248,0.35), 0 0 0 16px rgba(56,189,248,0.12), 0 12px 32px rgba(0,0,0,0.5); }
+  }
+  .collage-badge-num {
+    font-family: var(--font-head); font-size: 26px;
+    font-weight: 900; color: #0C1A3E; line-height: 1;
+  }
+  .collage-badge-txt {
+    font-size: 9px; color: #0C1A3E;
+    font-weight: 700; text-align: center;
+    line-height: 1.3; opacity: 0.85;
+  }
+
+  /* Sparkle dots */
+  .spark { position: absolute; border-radius: 50%; background: #38BDF8; animation: sparkPop 2.5s ease-in-out infinite; }
+  .s1 { width:11px; height:11px; top:8px;    right:85px;  animation-delay:0s; }
+  .s2 { width:7px;  height:7px;  top:55px;   left:185px;  animation-delay:0.7s; }
+  .s3 { width:9px;  height:9px;  bottom:75px;right:18px;  animation-delay:1.3s; }
+  .s4 { width:6px;  height:6px;  bottom:18px;left:185px;  animation-delay:2s; }
+  @keyframes sparkPop { 0%,100%{transform:scale(1);opacity:0.9} 50%{transform:scale(1.8);opacity:0.2} }
+
+  @media (max-width: 1200px) { .collage { width: 380px; height: 420px; } .hero-kids { flex: 0 0 400px; } }
+  @media (max-width: 900px) { .hero-kids { display: none; } }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.35);
+    border-radius: 99px; padding: 6px 18px 6px 8px;
+    color: #38BDF8; font-size: 12.5px; font-weight: 500;
+    margin-bottom: 28px; letter-spacing: 0.3px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #38BDF8; animation: pulse 2s infinite; }
+  .hero h1 {
+    font-family: var(--font-head); font-size: clamp(42px, 6vw, 72px);
+    font-weight: 900; color: #0C1A3E; line-height: 1.06;
+    margin-bottom: 22px; letter-spacing: -1px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero h1 em { color: #0284C7; font-style: italic; }
+  .hero-sub {
+    font-size: 17px; color: #475569; font-weight: 300;
+    line-height: 1.75; max-width: 520px; margin-bottom: 40px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; animation: fadeUp 0.8s 0.3s ease both; }
+  .btn-gold {
+    background: #38BDF8; color: #0C1A3E;
+    font-family: var(--font-body); font-size: 14.5px; font-weight: 600;
+    padding: 14px 32px; border-radius: 99px; border: none; cursor: pointer;
+    letter-spacing: 0.2px; transition: all 0.2s; text-decoration: none; display: inline-block;
+  }
+  .btn-gold:hover { background: #38BDF8; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(56,189,248,0.4); }
+  .btn-ghost {
+    background: transparent; color: var(--white);
+    font-family: var(--font-body); font-size: 14.5px; font-weight: 500;
+    padding: 14px 32px; border-radius: 99px;
+    border: 1px solid rgba(12,26,62,0.25); cursor: pointer;
+    transition: all 0.2s; text-decoration: none; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: #38BDF8; color: #0284C7; }
+
+  .hero-stats {
+    display: flex; gap: 0; margin-top: 64px;
+    background: #F0F9FF; border: 1px solid rgba(56,189,248,0.25);
+    border-radius: var(--radius); overflow: hidden; width: fit-content; max-width: 100%;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .hero-stat { padding: 22px 36px; border-right: 1px solid #BAE6FD; }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat-num { font-family: var(--font-head); font-size: 30px; font-weight: 700; color: #0284C7; line-height: 1; }
+  .hero-stat-lbl { font-size: 12px; color: #64748B; margin-top: 5px; font-weight: 400; letter-spacing: 0.3px; }
+
+  /* ─── DIAGONAL DIVIDER ─── */
+  .divider-down { display: block; background: #f8faff; line-height: 0; }
+  .divider-down svg { display: block; width: 100%; }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 0 48px 80px; scroll-margin-top: 72px; }
+
+  .section-eyebrow { padding-top: 56px;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #0284C7;
+    margin-bottom: 14px;
+  }
+  .section-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 2px; background: #38BDF8; border-radius: 2px; }
+  .section-title { padding-top: 0; font-family: var(--font-head); font-size: clamp(28px, 4vw, 44px); font-weight: 700; color: #0C1A3E; line-height: 1.2; margin-bottom: 14px; }
+  .section-sub { font-size: 16px; color: var(--gray-500); font-weight: 300; line-height: 1.75; max-width: 520px; }
+
+  /* ─── ABOUT ─── */
+  #about { background: #FFFFFF; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: flex-start; margin-top: 60px; }
+  .about-visual {
+    position: relative; border-radius: 20px; overflow: hidden;
+    background: linear-gradient(135deg, #0C1A3E 0%, #0F2560 100%);
+    min-height: 420px; display: flex; align-items: center; justify-content: center;
+  }
+  .about-visual-inner { text-align: center; padding: 48px; }
+  .about-visual-icon { font-size: 72px; margin-bottom: 20px; line-height: 1; }
+  .about-visual h3 { font-family: var(--font-head); font-size: 26px; color: var(--white); margin-bottom: 10px; }
+  .about-visual p { font-size: 14px; color: #64748B; line-height: 1.7; }
+  .about-badge-float {
+    position: absolute; bottom: 28px; left: 28px;
+    background: #38BDF8; border-radius: var(--radius-sm);
+    padding: 12px 18px; display: flex; align-items: center; gap: 10px;
+  }
+  .about-badge-float strong { font-size: 22px; font-weight: 700; color: #0C1A3E; display: block; line-height: 1; }
+  .about-badge-float span { font-size: 11px; color: rgba(12,26,62,0.7); font-weight: 500; }
+  .about-points { display: flex; flex-direction: column; gap: 24px; margin-top: 32px; }
+  .about-point { display: flex; align-items: flex-start; gap: 16px; }
+  .point-icon { width: 40px; height: 40px; min-width: 40px; border-radius: 10px; background: #E0F2FE; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .point-text h4 { font-size: 15px; font-weight: 600; color: #0C1A3E; margin-bottom: 4px; }
+  .point-text p { font-size: 14px; color: var(--gray-500); line-height: 1.65; }
+
+  /* ─── PROGRAMS ─── */
+  #programs { background: #F8FBFF; }
+  .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; }
+  .prog-card {
+    background: var(--white); border-radius: 18px;
+    padding: 32px 28px; border: 1px solid var(--gray-100);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative; overflow: hidden; cursor: pointer;
+  }
+  .prog-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #38BDF8, #BAE6FD);
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+  }
+  .prog-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+  .prog-card:hover::after { transform: scaleX(1); }
+  .prog-icon { font-size: 36px; margin-bottom: 18px; line-height: 1; }
+  .prog-card h3 { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: #0C1A3E; margin-bottom: 10px; }
+  .prog-card p { font-size: 14px; color: var(--gray-500); line-height: 1.7; margin-bottom: 20px; }
+  .prog-tag { display: inline-block; background: #E0F2FE; color: #38BDF8; font-size: 11.5px; font-weight: 600; padding: 4px 12px; border-radius: 99px; letter-spacing: 0.3px; }
+
+  /* ─── ACHIEVEMENTS ─── */
+  #achievements { background: #0C1A3E; }
+  #achievements .section-title { color: var(--white); }
+  #achievements .section-sub { color: #64748B; }
+  .achieve-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 56px; background: rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+  .achieve-card { padding: 40px 28px; background: rgba(12,26,62,0.5); text-align: center; transition: background 0.2s; }
+  .achieve-card:hover { background: rgba(22,45,84,0.9); }
+  .achieve-num { font-family: var(--font-head); font-size: 44px; font-weight: 900; color: #BAE6FD; line-height: 1; margin-bottom: 8px; }
+  .achieve-label { font-size: 13px; color: #64748B; font-weight: 400; line-height: 1.5; }
+
+  .trophies { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+  .trophy-item { background: rgba(255,255,255,0.05); border: 1px solid rgba(56,189,248,0.2); border-radius: var(--radius); padding: 20px 22px; display: flex; align-items: center; gap: 16px; transition: border-color 0.2s; }
+  .trophy-item:hover { border-color: rgba(56,189,248,0.5); }
+  .trophy-icon { font-size: 26px; }
+  .trophy-text h4 { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+  .trophy-text p { font-size: 12px; color: rgba(255,255,255,0.45); }
+
+  /* ─── FACULTY ─── */
+  #faculty { background: #FFFFFF; }
+  .faculty-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 56px; }
+  .faculty-card { border-radius: 16px; overflow: hidden; border: 1px solid var(--gray-100); transition: box-shadow 0.25s; }
+  .faculty-card:hover { box-shadow: var(--shadow); }
+  .faculty-avatar { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 56px; }
+  .faculty-av-1 { background: linear-gradient(135deg, #1a3a6b, #2a5298); }
+  .faculty-av-2 { background: linear-gradient(135deg, #5a2d82, #8b4fc7); }
+  .faculty-av-3 { background: linear-gradient(135deg, #1a6b4a, #2aae77); }
+  .faculty-av-4 { background: linear-gradient(135deg, #6b2a1a, #c74f2a); }
+  .faculty-info { padding: 18px 20px; }
+  .faculty-info h4 { font-size: 15px; font-weight: 600; color: #0C1A3E; margin-bottom: 4px; }
+  .faculty-info p { font-size: 13px; color: #38BDF8; font-weight: 500; margin-bottom: 6px; }
+  .faculty-info span { font-size: 12px; color: var(--gray-500); }
+
+  /* ─── EVENTS ─── */
+  #events { background: #F0F9FF; }
+  .events-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; margin-top: 56px; align-items: start; }
+  .event-featured { background: #0C1A3E; border-radius: 20px; overflow: hidden; }
+  .event-featured-top { padding: 40px; background: linear-gradient(135deg, #0F2560, #0C1A3E); }
+  .event-feat-badge { background: #38BDF8; color: #0C1A3E; font-size: 11px; font-weight: 700; padding: 4px 14px; border-radius: 99px; display: inline-block; margin-bottom: 18px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .event-featured-top h3 { font-family: var(--font-head); font-size: 26px; color: var(--white); margin-bottom: 12px; line-height: 1.3; }
+  .event-featured-top p { font-size: 14px; color: #64748B; line-height: 1.7; }
+  .event-featured-meta { padding: 24px 40px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; gap: 28px; }
+  .event-meta-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.6); }
+  .event-meta-item span { color: #BAE6FD; font-weight: 500; }
+
+  .event-list { display: flex; flex-direction: column; gap: 14px; }
+  .event-list-item { background: var(--white); border-radius: var(--radius); padding: 18px 20px; display: flex; gap: 16px; align-items: center; border: 1px solid var(--gray-100); transition: border-color 0.2s, box-shadow 0.2s; }
+  .event-list-item:hover { border-color: #38BDF8; box-shadow: 0 4px 18px rgba(56,189,248,0.15); }
+  .event-date-box { min-width: 52px; height: 52px; border-radius: 10px; background: #E0F2FE; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .event-date-box .dd { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: #0C1A3E; line-height: 1; }
+  .event-date-box .mm { font-size: 10px; font-weight: 600; color: #0284C7; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+  .event-list-info h4 { font-size: 14px; font-weight: 600; color: #0C1A3E; margin-bottom: 4px; }
+  .event-list-info p { font-size: 12.5px; color: var(--gray-500); }
+  .event-cat-tag { margin-top: 8px; display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+  .cat-sports { background: #EAF7EF; color: #1E7A42; }
+  .cat-culture { background: #EEF2FF; color: #3B4ECA; }
+  .cat-academic { background: #FFF4E5; color: #B25E00; }
+
+  /* ─── ADMISSIONS ─── */
+  #admissions { background: #FFFFFF; }
+  .adm-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 56px; }
+  .adm-steps { display: flex; flex-direction: column; gap: 0; }
+  .adm-step { display: flex; gap: 24px; position: relative; padding-bottom: 36px; }
+  .adm-step:last-child { padding-bottom: 0; }
+  .adm-step-line { display: flex; flex-direction: column; align-items: center; }
+  .adm-step-circle { width: 44px; height: 44px; border-radius: 50%; background: #0C1A3E; color: #38BDF8; font-family: var(--font-head); font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; min-width: 44px; }
+  .adm-step-connector { width: 2px; flex: 1; background: linear-gradient(to bottom, var(--gold), rgba(56,189,248,0.15)); margin: 6px 0; }
+  .adm-step:last-child .adm-step-connector { display: none; }
+  .adm-step-content { padding-top: 10px; }
+  .adm-step-content h4 { font-size: 16px; font-weight: 600; color: #0C1A3E; margin-bottom: 6px; }
+  .adm-step-content p { font-size: 14px; color: var(--gray-500); line-height: 1.65; }
+
+  .adm-form-card { background: #0C1A3E; border-radius: 20px; padding: 40px; }
+  .adm-form-card h3 { font-family: var(--font-head); font-size: 24px; color: var(--white); margin-bottom: 8px; }
+  .adm-form-card p { font-size: 14px; color: #64748B; margin-bottom: 28px; }
+  .form-row { display: flex; flex-direction: column; gap: 14px; }
+  .form-input {
+    width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px; padding: 13px 16px; font-family: var(--font-body); font-size: 14px;
+    color: var(--white); outline: none; transition: border-color 0.2s;
+  }
+  .form-input::placeholder { color: rgba(255,255,255,0.35); }
+  .form-input:focus { border-color: #38BDF8; background: rgba(255,255,255,0.1); }
+  .form-select { appearance: none; cursor: pointer; }
+  .form-select option { background: #0C1A3E; color: var(--white); }
+  .btn-submit { width: 100%; background: #38BDF8; color: #0C1A3E; font-family: var(--font-body); font-size: 15px; font-weight: 600; padding: 14px; border-radius: 99px; border: none; cursor: pointer; margin-top: 8px; transition: all 0.2s; letter-spacing: 0.2px; }
+  .btn-submit:hover { background: #0284C7; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(2,132,199,0.4); }
+
+  /* ─── TESTIMONIALS ─── */
+  #testimonials { background: #F0F9FF; }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; }
+  .testi-card { background: var(--white); border-radius: 18px; padding: 32px 28px; border: 1px solid var(--gray-100); position: relative; }
+  .testi-quote { font-size: 52px; color: #38BDF8; font-family: var(--font-head); line-height: 0.6; margin-bottom: 20px; }
+  .testi-text { font-size: 14.5px; color: var(--gray-700); line-height: 1.75; margin-bottom: 24px; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar { width: 44px; height: 44px; border-radius: 50%; font-size: 18px; display: flex; align-items: center; justify-content: center; }
+  .av-1 { background: #DBEAFE; }
+  .av-2 { background: #BAE6FD; }
+  .av-3 { background: #FEF3C7; }
+  .testi-meta h5 { font-size: 14px; font-weight: 600; color: #0C1A3E; }
+  .testi-meta span { font-size: 12px; color: var(--gray-500); }
+  .testi-stars { color: #38BDF8; font-size: 13px; margin-bottom: 4px; }
+
+  /* ─── CTA BANNER ─── */
+  .cta-banner { scroll-margin-top: 72px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, #1e3f6f 100%);
+    padding: 80px 48px; text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-banner::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, rgba(56,189,248,0.04) 0, rgba(56,189,248,0.04) 1px, transparent 1px, transparent 40px);
+  }
+  .cta-banner-content { position: relative; z-index: 1; }
+  .cta-banner h2 { font-family: var(--font-head); font-size: clamp(28px, 4vw, 48px); color: var(--white); margin-bottom: 16px; font-weight: 700; }
+  .cta-banner h2 em { color: #0284C7; font-style: italic; }
+  .cta-banner p { font-size: 16px; color: rgba(255,255,255,0.58); max-width: 480px; margin: 0 auto 36px; font-weight: 300; line-height: 1.7; }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* ─── FOOTER ─── */
+  footer { background: #060d1f; padding: 72px 48px 40px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .footer-brand .footer-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; text-decoration: none; }
+  .footer-brand-name { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--white); }
+  .footer-brand-name span { color: #38BDF8; }
+  .footer-brand p { font-size: 13.5px; color: rgba(255,255,255,0.4); line-height: 1.75; max-width: 280px; margin-bottom: 24px; }
+  .footer-social { display: flex; gap: 10px; }
+  .social-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.2s; cursor: pointer; color: #64748B; text-decoration: none; }
+  .social-btn:hover { background: #38BDF8; color: #0C1A3E; border-color: #38BDF8; }
+  .footer-col h4 { font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 18px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .footer-col ul li a { font-size: 13.5px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: #BAE6FD; }
+  .footer-bottom { padding-top: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-bottom p { font-size: 12.5px; color: rgba(255,255,255,0.3); }
+  .footer-bottom-links { display: flex; gap: 24px; }
+  .footer-bottom-links a { font-size: 12.5px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-bottom-links a:hover { color: #BAE6FD; }
+
+  /* ─── LOCATION MAP ─── */
+  #location { scroll-margin-top: 72px;
+    background: #0C1A3E;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .loc-hero { scroll-margin-top: 72px;
+    padding: 80px 48px 0;
+    position: relative; z-index: 2;
+    text-align: center;
+  }
+  .loc-hero .section-eyebrow { color: #BAE6FD; justify-content: center; }
+  .loc-hero .section-eyebrow::before { background: #BAE6FD; }
+  .loc-hero .section-title { color: var(--white); text-align: center; }
+  .loc-hero .section-sub { color: #64748B; text-align: center; margin: 0 auto 48px; }
+
+  /* The big map wrapper */
+  .map-stage {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    overflow: hidden;
+  }
+  .map-stage iframe {
+    width: 100%; height: 100%; border: none; display: block;
+    filter: saturate(1.1) contrast(1.05);
+  }
+  /* Gold overlay frame at top */
+  .map-stage::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 6px; z-index: 10;
+    background: linear-gradient(90deg, #0C1A3E, #38BDF8, #0C1A3E);
+  }
+  /* Dark vignette sides */
+  .map-stage::after {
+    content: '';
+    position: absolute; inset: 0; z-index: 5; pointer-events: none;
+    background:
+      linear-gradient(to right, rgba(12,26,62,0.55) 0%, transparent 18%, transparent 82%, rgba(12,26,62,0.55) 100%),
+      linear-gradient(to bottom, rgba(12,26,62,0.3) 0%, transparent 20%, transparent 70%, rgba(12,26,62,0.7) 100%);
+  }
+
+  /* Floating info panel overlaid on map */
+  .map-info-panel {
+    position: absolute; bottom: 32px; left: 48px; z-index: 20;
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .map-chip {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(12,26,62,0.92);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(56,189,248,0.3);
+    border-radius: 14px; padding: 14px 20px;
+    color: white; font-size: 13.5px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    transition: transform 0.25s, border-color 0.25s;
+    cursor: default;
+  }
+  .map-chip:hover { transform: translateY(-4px); border-color: #38BDF8; }
+  .map-chip-icon {
+    width: 38px; height: 38px; min-width: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #38BDF8, #BAE6FD);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .map-chip-text strong { display: block; font-size: 13px; font-weight: 700; color: #BAE6FD; margin-bottom: 2px; }
+  .map-chip-text span { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.4; }
+
+  /* Glowing pin badge center of map */
+  .map-pin-badge {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    z-index: 15; pointer-events: none;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .map-pin-ring {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: linear-gradient(135deg, #38BDF8, #BAE6FD);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px;
+    box-shadow:
+      0 0 0 8px rgba(56,189,248,0.25),
+      0 0 0 16px rgba(56,189,248,0.10),
+      0 0 40px rgba(56,189,248,0.5);
+    animation: pinPulse 2.5s ease-in-out infinite;
+  }
+  .map-pin-tail {
+    width: 3px; height: 24px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  .map-pin-label {
+    background: #0C1A3E; color: #BAE6FD;
+    font-family: var(--font-head); font-size: 13px; font-weight: 700;
+    padding: 6px 16px; border-radius: 99px;
+    border: 1px solid rgba(56,189,248,0.4);
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    margin-top: 6px;
+  }
+  @keyframes pinPulse {
+    0%,100% { box-shadow: 0 0 0 8px rgba(56,189,248,0.25), 0 0 0 16px rgba(56,189,248,0.10), 0 0 40px rgba(56,189,248,0.5); }
+    50%      { box-shadow: 0 0 0 14px rgba(56,189,248,0.35), 0 0 0 26px rgba(56,189,248,0.12), 0 0 60px rgba(56,189,248,0.7); }
+  }
+
+  /* Directions CTA strip below map */
+  .map-cta-strip {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 48px;
+    background: linear-gradient(135deg, #060d1f 0%, #0C1A3E 100%);
+    border-top: 1px solid rgba(56,189,248,0.2);
+    flex-wrap: wrap; gap: 16px;
+  }
+  .map-cta-left { display: flex; align-items: center; gap: 16px; }
+  .map-cta-left .loc-pin-emoji { font-size: 36px; }
+  .map-cta-left h4 { font-family: var(--font-head); font-size: 18px; color: var(--white); font-weight: 700; margin-bottom: 3px; }
+  .map-cta-left p { font-size: 13px; color: #64748B; }
+  .map-cta-right { display: flex; gap: 12px; flex-wrap: wrap; }
+  .directions-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #38BDF8; color: #0C1A3E;
+    font-family: var(--font-body); font-size: 14px; font-weight: 700;
+    padding: 13px 28px; border-radius: 99px; text-decoration: none;
+    transition: all 0.25s; white-space: nowrap;
+    box-shadow: 0 4px 20px rgba(56,189,248,0.35);
+  }
+  .directions-btn:hover { background: #BAE6FD; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(56,189,248,0.5); }
+  .directions-btn-ghost {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent; color: var(--white);
+    font-family: var(--font-body); font-size: 14px; font-weight: 600;
+    padding: 13px 28px; border-radius: 99px; text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.25);
+    transition: all 0.25s; white-space: nowrap;
+  }
+  .directions.btn-ghost:hover { border-color: #38BDF8; color: #0284C7; }
+
+  @media (max-width: 900px) {
+    .loc-hero { scroll-margin-top: 72px; padding: 60px 24px 0; }
+    .map-stage { height: 380px; }
+    .map-info-panel { left: 16px; bottom: 16px; }
+    .map-chip { padding: 10px 14px; }
+    .map-cta-strip { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    .map-pin-badge { display: none; }
+  }
+
+  /* ─── SMOOTH FADE TRANSITION ─── */
+  #page-transition {
+    position: fixed; inset: 0; z-index: 9999;
+    pointer-events: none;
+    background: #0C1A3E;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  #page-transition.fade-in {
+    opacity: 1;
+    pointer-events: all;
+  }
+  #page-transition.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* ─── ACTIVE NAV LINK ─── */
+  .nav-links a {
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 2px; border-radius: 2px;
+    background: #38BDF8;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s ease;
+  }
+  .nav-links a:hover::after,
+  .nav-links a.active::after { transform: scaleX(1); }
+  .nav-links a.active { color: var(--gold-lt) !important; }
+
+  /* ─── SECTION FADE-IN ON ARRIVAL ─── */
+  .section-enter {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .section-enter.entered {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%,100% { opacity:1; transform: scale(1); } 50% { opacity:0.6; transform: scale(0.85); } }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .revealed { opacity: 1; transform: none; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero { scroll-margin-top: 72px; padding: 100px 24px 60px; }
+    .hero-stats { flex-wrap: wrap; }
+    section { padding: 0 24px 64px; }
+    .about-grid, .adm-split { grid-template-columns: 1fr; gap: 40px; }
+    .programs-grid { grid-template-columns: 1fr 1fr; }
+    .achieve-grid { grid-template-columns: 1fr 1fr; }
+    .faculty-grid { grid-template-columns: 1fr 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .events-layout { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .trophies { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div id="page-transition"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <a class="nav-logo" onclick="transitionTo('home')" style="cursor:pointer;">
+    <div class="nav-emblem">JPS</div>
+    <span class="nav-name">Jaimini <span>Public School</span></span>
+  </a>
+  <div class="nav-links">
+    <a onclick="transitionTo('about')" style="cursor:pointer;">About</a>
+    <a onclick="transitionTo('programs')" style="cursor:pointer;">Academics</a>
+    <a onclick="transitionTo('achievements')" style="cursor:pointer;">Achievements</a>
+    <a onclick="transitionTo('events')" style="cursor:pointer;">Events</a>
+    <a onclick="transitionTo('faculty')" style="cursor:pointer;">Faculty</a>
+    <a onclick="transitionTo('admissions')" style="cursor:pointer;">Admissions</a>
+    <a onclick="transitionTo('location')" style="cursor:pointer;">Location</a>
+  </div>
+  <button class="nav-apply" onclick="transitionTo('admissions')">Apply Now →</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Admissions Open for 2025–26 · Apply Before July 31
+    </div>
+    <h1>Shaping Minds,<br/>Building <em>Futures</em>,<br/>Creating Leaders.</h1>
+    <p class="hero-sub">At Jaimini Public School, we believe every student carries extraordinary potential. Our world-class faculty, modern infrastructure, and values-driven education unlock it — every single day.</p>
+    <div class="hero-btns">
+      <a class="btn-gold" onclick="transitionTo('admissions')" style="cursor:pointer;">Start Your Application</a>
+      <a class="btn-ghost" onclick="transitionTo('about')" style="cursor:pointer;">Discover Our Story</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">2,400+</div><div class="hero-stat-lbl">Students Enrolled</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">99.2%</div><div class="hero-stat-lbl">Board Pass Rate</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">180+</div><div class="hero-stat-lbl">Expert Faculty</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">25 Yrs</div><div class="hero-stat-lbl">Of Excellence</div></div>
+    </div>
+  </div>
+
+  <!-- PHOTO COLLAGE -->
+  <div class="hero-kids">
+    <div class="collage">
+
+      <div class="photo-card card1">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNTAwIDQwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzFhM2E2YiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzBkMWYzYyIvPjwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJvYXJkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzFlNWMyZSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzEzNDAyMCIvPjwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImRlc2siIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOEI1RTNDIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNWEzYTFhIi8+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0id2luZG93IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg3Q0VFQiIgc3RvcC1vcGFjaXR5PSIwLjkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0QTkwRDkiIHN0b3Atb3BhY2l0eT0iMC43Ii8+PC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPCEtLSBSb29tIGJhY2tncm91bmQgLS0+CiAgPHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9InVybCgjYmcpIi8+CiAgPCEtLSBGbG9vciAtLT4KICA8cmVjdCB4PSIwIiB5PSIzMDAiIHdpZHRoPSI1MDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjMWEyODQwIi8+CiAgPCEtLSBXYWxsIGRldGFpbCAtLT4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQiIGZpbGw9InJnYmEoMjMyLDE2MCwzMiwwLjYpIi8+CiAgPCEtLSBXaW5kb3dzIGxlZnQgLS0+CiAgPHJlY3QgeD0iMjAiIHk9IjMwIiB3aWR0aD0iODAiIGhlaWdodD0iMTAwIiByeD0iNiIgZmlsbD0idXJsKCN3aW5kb3cpIi8+CiAgPGxpbmUgeDE9IjYwIiB5MT0iMzAiIHgyPSI2MCIgeTI9IjEzMCIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNSkiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxsaW5lIHgxPSIyMCIgeTE9IjgwIiB4Mj0iMTAwIiB5Mj0iODAiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjUpIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cmVjdCB4PSIyMCIgeT0iMzAiIHdpZHRoPSI4MCIgaGVpZ2h0PSIxMDAiIHJ4PSI2IiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4zKSIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgPCEtLSBTdW5iZWFtIGZyb20gd2luZG93IC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMjAsMzAgMTAwLDEzMCAwLDEzMCIgZmlsbD0icmdiYSgyNTUsMjU1LDIwMCwwLjA2KSIvPgogIDwhLS0gQmxhY2tib2FyZCAtLT4KICA8cmVjdCB4PSIxMjAiIHk9IjIwIiB3aWR0aD0iMjgwIiBoZWlnaHQ9IjE2MCIgcng9IjgiIGZpbGw9InVybCgjYm9hcmQpIi8+CiAgPHJlY3QgeD0iMTI4IiB5PSIyOCIgd2lkdGg9IjI2NCIgaGVpZ2h0PSIxNDQiIHJ4PSI0IiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4xNSkiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwhLS0gQm9hcmQgZnJhbWUgZ29sZCAtLT4KICA8cmVjdCB4PSIxMjAiIHk9IjIwIiB3aWR0aD0iMjgwIiBoZWlnaHQ9IjE2MCIgcng9IjgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0U4QTAyMCIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgPCEtLSBDaGFsayB3cml0aW5nIG9uIGJvYXJkIC0tPgogIDx0ZXh0IHg9IjI2MCIgeT0iODAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuOSkiIGZvbnQtc3R5bGU9Iml0YWxpYyI+TWF0aGVtYXRpY3M8L3RleHQ+CiAgPHRleHQgeD0iMjAwIiB5PSIxMTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC43NSkiPkUgPSBtY8KyPC90ZXh0PgogIDx0ZXh0IHg9IjMxMCIgeT0iMTE1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjE0IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNzUpIj5hwrIgKyBiwrIgPSBjwrI8L3RleHQ+CiAgPGxpbmUgeDE9IjE0NSIgeTE9IjEzNSIgeDI9IjM3NSIgeTI9IjEzNSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMikiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWRhc2hhcnJheT0iNCw0Ii8+CiAgPHRleHQgeD0iMjYwIiB5PSIxNTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNSkiPkhvcml6b24gQWNhZGVteSDCtyBHcmFkZSBYPC90ZXh0PgogIDwhLS0gQ2hhbGsgdHJheSAtLT4KICA8cmVjdCB4PSIxMjAiIHk9IjE3OCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIxMCIgcng9IjMiIGZpbGw9IiM4QjY5MTQiLz4KICA8cmVjdCB4PSIxNDAiIHk9IjE4MCIgd2lkdGg9IjE4IiBoZWlnaHQ9IjYiIHJ4PSIzIiBmaWxsPSJ3aGl0ZSIvPgogIDxyZWN0IHg9IjE2NSIgeT0iMTgwIiB3aWR0aD0iMTgiIGhlaWdodD0iNiIgcng9IjMiIGZpbGw9IiNGRkQwRDAiLz4KICA8cmVjdCB4PSIxOTAiIHk9IjE4MCIgd2lkdGg9IjE4IiBoZWlnaHQ9IjYiIHJ4PSIzIiBmaWxsPSIjRDBGRkQwIi8+CiAgPCEtLSBUZWFjaGVyIGRlc2sgLS0+CiAgPHJlY3QgeD0iMTQwIiB5PSIyMTAiIHdpZHRoPSIyMjAiIGhlaWdodD0iMjAiIHJ4PSI0IiBmaWxsPSIjNkI0QTJBIi8+CiAgPHJlY3QgeD0iMTUwIiB5PSIyMzAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcng9IjMiIGZpbGw9InVybCgjZGVzaykiLz4KICA8cmVjdCB4PSIyOTAiIHk9IjIzMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMyIgZmlsbD0idXJsKCNkZXNrKSIvPgogIDwhLS0gVGVhY2hlciBmaWd1cmUgLS0+CiAgPGNpcmNsZSBjeD0iMjYwIiBjeT0iMjE1IiByPSIyMiIgZmlsbD0iI0ZCQkY4QSIvPgogIDxlbGxpcHNlIGN4PSIyNjAiIGN5PSIyNjgiIHJ4PSIyOCIgcnk9IjM1IiBmaWxsPSIjMEQyNDU0Ii8+CiAgPCEtLSBUZWFjaGVyIGhhaXIgLS0+CiAgPGVsbGlwc2UgY3g9IjI2MCIgY3k9IjIwMCIgcng9IjIyIiByeT0iMTIiIGZpbGw9IiMyQzFBMEUiLz4KICA8IS0tIFN0dWRlbnQgZGVza3MgLS0+CiAgPHJlY3QgeD0iNDAiIHk9IjI3MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMiIgcng9IjQiIGZpbGw9IiM2QjRBMkEiLz4KICA8cmVjdCB4PSIxODAiIHk9IjI3MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMiIgcng9IjQiIGZpbGw9IiM2QjRBMkEiLz4KICA8cmVjdCB4PSIzMjAiIHk9IjI3MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMiIgcng9IjQiIGZpbGw9IiM2QjRBMkEiLz4KICA8IS0tIFN0dWRlbnRzIHNpdHRpbmcgLS0+CiAgPCEtLSBTdHVkZW50IDEgLS0+CiAgPGNpcmNsZSBjeD0iOTAiIGN5PSIyNTIiIHI9IjE2IiBmaWxsPSIjRkJCRjhBIi8+CiAgPGVsbGlwc2UgY3g9IjkwIiBjeT0iMjY4IiByeD0iMTgiIHJ5PSIxNCIgZmlsbD0iI0U4QTAyMCIvPgogIDxyZWN0IHg9IjYwIiB5PSIyNTUiIHdpZHRoPSIyNCIgaGVpZ2h0PSIzIiByeD0iMSIgZmlsbD0iI0ZCQkY4QSIvPgogIDwhLS0gU3R1ZGVudCAyIC0tPgogIDxjaXJjbGUgY3g9IjIzMCIgY3k9IjI1MiIgcj0iMTYiIGZpbGw9IiNDNjg2NDIiLz4KICA8ZWxsaXBzZSBjeD0iMjMwIiBjeT0iMjY4IiByeD0iMTgiIHJ5PSIxNCIgZmlsbD0iIzBEMjQ1NCIvPgogIDxyZWN0IHg9IjIwMCIgeT0iMjU1IiB3aWR0aD0iMjQiIGhlaWdodD0iMyIgcng9IjEiIGZpbGw9IiNDNjg2NDIiLz4KICA8IS0tIFN0dWRlbnQgMyAtLT4KICA8Y2lyY2xlIGN4PSIzNzAiIGN5PSIyNTIiIHI9IjE2IiBmaWxsPSIjRkJCRjhBIi8+CiAgPGVsbGlwc2UgY3g9IjM3MCIgY3k9IjI2OCIgcng9IjE4IiByeT0iMTQiIGZpbGw9IiMyRTdEMzIiLz4KICA8cmVjdCB4PSIzNDAiIHk9IjI1NSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjMiIHJ4PSIxIiBmaWxsPSIjRkJCRjhBIi8+CiAgPCEtLSBCb29rcyBvbiBkZXNrcyAtLT4KICA8cmVjdCB4PSI1NSIgeT0iMjY4IiB3aWR0aD0iMzAiIGhlaWdodD0iNCIgcng9IjEiIGZpbGw9IiNFNTM5MzUiLz4KICA8cmVjdCB4PSIxOTUiIHk9IjI2OCIgd2lkdGg9IjMwIiBoZWlnaHQ9IjQiIHJ4PSIxIiBmaWxsPSIjMTU2NUMwIi8+CiAgPHJlY3QgeD0iMzM1IiB5PSIyNjgiIHdpZHRoPSIzMCIgaGVpZ2h0PSI0IiByeD0iMSIgZmlsbD0iIzJFN0QzMiIvPgogIDwhLS0gT3ZlcmhlYWQgbGlnaHRzIC0tPgogIDxyZWN0IHg9IjE1MCIgeT0iMCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjE4IiBmaWxsPSIjODg4Ii8+CiAgPGVsbGlwc2UgY3g9IjE1NSIgY3k9IjIwIiByeD0iMzAiIHJ5PSI4IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjAwLDAuNikiLz4KICA8cmVjdCB4PSIzMzAiIHk9IjAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxOCIgZmlsbD0iIzg4OCIvPgogIDxlbGxpcHNlIGN4PSIzMzUiIGN5PSIyMCIgcng9IjMwIiByeT0iOCIgZmlsbD0icmdiYSgyNTUsMjU1LDIwMCwwLjYpIi8+CiAgPCEtLSBMaWdodCBnbG93IC0tPgogIDxlbGxpcHNlIGN4PSIxNTUiIGN5PSI2MCIgcng9IjgwIiByeT0iNTAiIGZpbGw9InJnYmEoMjU1LDI1NSwyMDAsMC4wNSkiLz4KICA8ZWxsaXBzZSBjeD0iMzM1IiBjeT0iNjAiIHJ4PSI4MCIgcnk9IjUwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjAwLDAuMDUpIi8+CiAgPCEtLSBHb2xkIHNoaW1tZXIgdG9wIC0tPgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI1MDAiIGhlaWdodD0iNCIgZmlsbD0iI0U4QTAyMCIgb3BhY2l0eT0iMC44Ii8+Cjwvc3ZnPg==" alt="Smart Classroom"/>
+        <div class="photo-overlay"><span class="photo-tag">📚 Smart Classrooms</span></div>
+      </div>
+
+      <div class="photo-card card2">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNTAwIDQwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InNreSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxYTZiM2EiLz48c3RvcCBvZmZzZXQ9IjYwJSIgc3RvcC1jb2xvcj0iIzJkOWU1YSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFhNGEyNiIvPjwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9Imdyb3VuZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMzYThhM2EiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxZTVjMWUiLz48L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8IS0tIFNreSBncmFkaWVudCAtLT4KICA8cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iIzFhNGE3YSIvPgogIDwhLS0gRGF5dGltZSBza3kgLS0+CiAgPHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSIyMjAiIGZpbGw9IiMyYTZhYmYiLz4KICA8IS0tIENsb3VkcyAtLT4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iNTAiIHJ4PSI2MCIgcnk9IjIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuODUpIi8+CiAgPGVsbGlwc2UgY3g9IjEzMCIgY3k9IjQ0IiByeD0iNDAiIHJ5PSIxOCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjkpIi8+CiAgPGVsbGlwc2UgY3g9IjcwIiBjeT0iNDgiIHJ4PSIzNSIgcnk9IjE2IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuODUpIi8+CiAgPGVsbGlwc2UgY3g9IjM4MCIgY3k9IjYwIiByeD0iNTUiIHJ5PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjgpIi8+CiAgPGVsbGlwc2UgY3g9IjQxMCIgY3k9IjU0IiByeD0iMzgiIHJ5PSIxNyIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjg1KSIvPgogIDwhLS0gRm9vdGJhbGwgZmllbGQgLS0+CiAgPHJlY3QgeD0iMCIgeT0iMjIwIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjE4MCIgZmlsbD0idXJsKCNncm91bmQpIi8+CiAgPCEtLSBGaWVsZCBzdHJpcGVzIC0tPgogIDxyZWN0IHg9IjAiIHk9IjIyMCIgd2lkdGg9IjUwMCIgaGVpZ2h0PSIzMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPgogIDxyZWN0IHg9IjAiIHk9IjI4MCIgd2lkdGg9IjUwMCIgaGVpZ2h0PSIzMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPgogIDxyZWN0IHg9IjAiIHk9IjM0MCIgd2lkdGg9IjUwMCIgaGVpZ2h0PSIzMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPgogIDwhLS0gRmllbGQgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjI1MCIgeTE9IjIyMCIgeDI9IjI1MCIgeTI9IjQwMCIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNSkiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxlbGxpcHNlIGN4PSIyNTAiIGN5PSIzMjAiIHJ4PSI3MCIgcnk9IjUwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC40KSIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGxpbmUgeDE9IjAiIHkxPSIzMjAiIHgyPSI1MDAiIHkyPSIzMjAiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjMpIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDwhLS0gUGVuYWx0eSBib3ggbGVmdCAtLT4KICA8cmVjdCB4PSIwIiB5PSIyNjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTAwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC40KSIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPCEtLSBQZW5hbHR5IGJveCByaWdodCAtLT4KICA8cmVjdCB4PSIzODAiIHk9IjI2MCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxMDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjQpIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8IS0tIEdvYWwgcG9zdCBsZWZ0IC0tPgogIDxyZWN0IHg9IjAiIHk9IjI4NSIgd2lkdGg9IjYiIGhlaWdodD0iNjAiIGZpbGw9IndoaXRlIi8+CiAgPHJlY3QgeD0iNiIgeT0iMjg1IiB3aWR0aD0iNTAiIGhlaWdodD0iNiIgZmlsbD0id2hpdGUiLz4KICA8cmVjdCB4PSI1NiIgeT0iMjg1IiB3aWR0aD0iNiIgaGVpZ2h0PSI2MCIgZmlsbD0id2hpdGUiLz4KICA8IS0tIEdvYWwgcG9zdCByaWdodCAtLT4KICA8cmVjdCB4PSI0OTQiIHk9IjI4NSIgd2lkdGg9IjYiIGhlaWdodD0iNjAiIGZpbGw9IndoaXRlIi8+CiAgPHJlY3QgeD0iNDQ0IiB5PSIyODUiIHdpZHRoPSI1MCIgaGVpZ2h0PSI2IiBmaWxsPSJ3aGl0ZSIvPgogIDxyZWN0IHg9IjQ0NCIgeT0iMjg1IiB3aWR0aD0iNiIgaGVpZ2h0PSI2MCIgZmlsbD0id2hpdGUiLz4KICA8IS0tIEZvb3RiYWxsIC0tPgogIDxjaXJjbGUgY3g9IjI1MCIgY3k9IjI2MCIgcj0iMTgiIGZpbGw9IndoaXRlIi8+CiAgPHBhdGggZD0iTTI1MCwyNDIgTDI1OCwyNTIgTDI1NCwyNjQgTDI0NiwyNjQgTDI0MiwyNTIgWiIgZmlsbD0iIzFhMWExYSIvPgogIDxsaW5lIHgxPSIyNTAiIHkxPSIyNDIiIHgyPSIyNTAiIHkyPSIyNTgiIHN0cm9rZT0iIzFhMWExYSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8bGluZSB4MT0iMjQyIiB5MT0iMjUyIiB4Mj0iMjU4IiB5Mj0iMjUyIiBzdHJva2U9IiMxYTFhMWEiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPCEtLSBQbGF5ZXJzIC0tPgogIDwhLS0gUGxheWVyIDEgLSBraWNraW5nIC0tPgogIDxjaXJjbGUgY3g9IjIwMCIgY3k9IjI0MCIgcj0iMTgiIGZpbGw9IiNGQkJGOEEiLz4KICA8ZWxsaXBzZSBjeD0iMjAwIiBjeT0iMjY4IiByeD0iMjAiIHJ5PSIyNSIgZmlsbD0iIzBEMjQ1NCIvPgogIDxyZWN0IHg9IjE4OCIgeT0iMjg4IiB3aWR0aD0iMTAiIGhlaWdodD0iMjAiIHJ4PSI0IiBmaWxsPSIjMEQyNDU0Ii8+CiAgPHJlY3QgeD0iMjAyIiB5PSIyODgiIHdpZHRoPSIxMCIgaGVpZ2h0PSIyMCIgcng9IjQiIGZpbGw9IiMwRDI0NTQiLz4KICA8ZWxsaXBzZSBjeD0iMjAwIiBjeT0iMjI4IiByeD0iMTgiIHJ5PSIxMCIgZmlsbD0iIzJDMUEwRSIvPgogIDwhLS0gS2lja2luZyBsZWcgLS0+CiAgPGxpbmUgeDE9IjIxMCIgeTE9IjI5MCIgeDI9IjI0MCIgeTI9IjI2OCIgc3Ryb2tlPSIjMEQyNDU0IiBzdHJva2Utd2lkdGg9IjEwIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8IS0tIFBsYXllciAyIC0gcnVubmluZyAtLT4KICA8Y2lyY2xlIGN4PSIzMTAiIGN5PSIyNDUiIHI9IjE4IiBmaWxsPSIjQzY4NjQyIi8+CiAgPGVsbGlwc2UgY3g9IjMxMCIgY3k9IjI3MyIgcng9IjIwIiByeT0iMjUiIGZpbGw9IiNFNTM5MzUiLz4KICA8cmVjdCB4PSIyOTgiIHk9IjI5MyIgd2lkdGg9IjEwIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iI0M2ODY0MiIvPgogIDxyZWN0IHg9IjMxMiIgeT0iMjkzIiB3aWR0aD0iMTAiIGhlaWdodD0iMjAiIHJ4PSI0IiBmaWxsPSIjQzY4NjQyIi8+CiAgPGVsbGlwc2UgY3g9IjMxMCIgY3k9IjIzMyIgcng9IjE4IiByeT0iMTAiIGZpbGw9IiMxYTBlMDUiLz4KICA8IS0tIFBsYXllciAzIGdvYWxrZWVwZXIgLS0+CiAgPGNpcmNsZSBjeD0iNDY4IiBjeT0iMzAwIiByPSIxNiIgZmlsbD0iI0ZCQkY4QSIvPgogIDxlbGxpcHNlIGN4PSI0NjgiIGN5PSIzMjUiIHJ4PSIxOCIgcnk9IjIyIiBmaWxsPSIjRThBMDIwIi8+CiAgPCEtLSBBcm1zIG91dCAtLT4KICA8bGluZSB4MT0iNDUwIiB5MT0iMzEwIiB4Mj0iNDMwIiB5Mj0iMjk1IiBzdHJva2U9IiNFOEEwMjAiIHN0cm9rZS13aWR0aD0iOSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGxpbmUgeDE9IjQ4NiIgeTE9IjMxMCIgeDI9IjUwMCIgeTI9IjI5NSIgc3Ryb2tlPSIjRThBMDIwIiBzdHJva2Utd2lkdGg9IjkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gU2NvcmVib2FyZCAtLT4KICA8cmVjdCB4PSIxNzAiIHk9IjMwIiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjcwIiByeD0iMTAiIGZpbGw9InJnYmEoMCwwLDAsMC43NSkiIHN0cm9rZT0iI0U4QTAyMCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHRleHQgeD0iMjUwIiB5PSI1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiNFOEEwMjAiIGZvbnQtd2VpZ2h0PSJib2xkIj5IT1JJWk9OIEFDQURFTVk8L3RleHQ+CiAgPHRleHQgeD0iMjUwIiB5PSI4MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIj4yIOKAlCAxPC90ZXh0PgogIDwhLS0gQ3Jvd2Qgc2hhcGVzIHRvcCAtLT4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSIxNzUiIHJ4PSIxOCIgcnk9IjE4IiBmaWxsPSIjRkJCRjhBIi8+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjE3OCIgcng9IjE4IiByeT0iMTgiIGZpbGw9IiNDNjg2NDIiLz4KICA8ZWxsaXBzZSBjeD0iMTQwIiBjeT0iMTc0IiByeD0iMTgiIHJ5PSIxOCIgZmlsbD0iI0ZCQkY4QSIvPgogIDxlbGxpcHNlIGN4PSIzNjAiIGN5PSIxNzYiIHJ4PSIxOCIgcnk9IjE4IiBmaWxsPSIjQzY4NjQyIi8+CiAgPGVsbGlwc2UgY3g9IjQwMCIgY3k9IjE3MyIgcng9IjE4IiByeT0iMTgiIGZpbGw9IiNGQkJGOEEiLz4KICA8ZWxsaXBzZSBjeD0iNDQwIiBjeT0iMTc3IiByeD0iMTgiIHJ5PSIxOCIgZmlsbD0iI0M2ODY0MiIvPgogIDxyZWN0IHg9IjMwIiB5PSIxODgiIHdpZHRoPSIxNDAiIGhlaWdodD0iMzUiIHJ4PSI0IiBmaWxsPSIjMEQyNDU0Ii8+CiAgPHJlY3QgeD0iMzQwIiB5PSIxODgiIHdpZHRoPSIxNDAiIGhlaWdodD0iMzUiIHJ4PSI0IiBmaWxsPSIjMEQyNDU0Ii8+CiAgPCEtLSBHb2xkIHRvcCBiYXIgLS0+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjUwMCIgaGVpZ2h0PSI0IiBmaWxsPSIjRThBMDIwIiBvcGFjaXR5PSIwLjgiLz4KPC9zdmc+" alt="Sports Activities"/>
+        <div class="photo-overlay"><span class="photo-tag">🏆 Sports &amp; Games</span></div>
+      </div>
+
+      <div class="photo-card card3">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNTAwIDQwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InN0YWdlX2JnIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzFhMDUzMCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzBhMDExOCIvPjwvbGluZWFyR3JhZGllbnQ+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9InNwb3RsaWdodDEiIGN4PSIzNSUiIGN5PSIwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSJyZ2JhKDI1NSwyMjAsMTAwLDAuNCkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9InRyYW5zcGFyZW50Ii8+PC9yYWRpYWxHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0ic3BvdGxpZ2h0MiIgY3g9IjY1JSIgY3k9IjAlIiByPSI2MCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9InJnYmEoMTAwLDE4MCwyNTUsMC4zNSkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9InRyYW5zcGFyZW50Ii8+PC9yYWRpYWxHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0ic3BvdGxpZ2h0MyIgY3g9IjUwJSIgY3k9IjAlIiByPSI1NSUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9InJnYmEoMjU1LDEwMCwyMDAsMC4yNSkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9InRyYW5zcGFyZW50Ii8+PC9yYWRpYWxHcmFkaWVudD4KICA8L2RlZnM+CiAgPCEtLSBEYXJrIHN0YWdlIGJhY2tncm91bmQgLS0+CiAgPHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9InVybCgjc3RhZ2VfYmcpIi8+CiAgPCEtLSBDdXJ0YWlucyBsZWZ0IC0tPgogIDxwYXRoIGQ9Ik0wLDAgUTYwLDgwIDQwLDIwMCBRNjAsMzAwIDMwLDQwMCBMMCw0MDAgWiIgZmlsbD0iIzhCMDAwMCIvPgogIDxwYXRoIGQ9Ik0wLDAgUTgwLDEwMCA1NSwyMjAgUTcwLDMyMCA0NSw0MDAgTDAsNDAwIFoiIGZpbGw9IiNBMDAwMDAiLz4KICA8cGF0aCBkPSJNMCwwIFE1MCw3MCAzNSwxODAgUTU1LDI5MCAyNSw0MDAgTDAsNDAwIFoiIGZpbGw9IiM2QjAwMDAiLz4KICA8IS0tIEN1cnRhaW4gZm9sZHMgbGVmdCAtLT4KICA8bGluZSB4MT0iMTUiIHkxPSIwIiB4Mj0iMjAiIHkyPSI0MDAiIHN0cm9rZT0icmdiYSgwLDAsMCwwLjMpIiBzdHJva2Utd2lkdGg9IjYiLz4KICA8bGluZSB4MT0iMzUiIHkxPSIwIiB4Mj0iMzgiIHkyPSI0MDAiIHN0cm9rZT0icmdiYSgwLDAsMCwwLjMpIiBzdHJva2Utd2lkdGg9IjQiLz4KICA8IS0tIEN1cnRhaW5zIHJpZ2h0IC0tPgogIDxwYXRoIGQ9Ik01MDAsMCBRNDQwLDgwIDQ2MCwyMDAgUTQ0MCwzMDAgNDcwLDQwMCBMNTAwLDQwMCBaIiBmaWxsPSIjOEIwMDAwIi8+CiAgPHBhdGggZD0iTTUwMCwwIFE0MjAsMTAwIDQ0NSwyMjAgUTQzMCwzMjAgNDU1LDQwMCBMNTAwLDQwMCBaIiBmaWxsPSIjQTAwMDAwIi8+CiAgPHBhdGggZD0iTTUwMCwwIFE0NTAsNzAgNDY1LDE4MCBRNDQ1LDI5MCA0NzUsNDAwIEw1MDAsNDAwIFoiIGZpbGw9IiM2QjAwMDAiLz4KICA8IS0tIEN1cnRhaW4gZm9sZHMgcmlnaHQgLS0+CiAgPGxpbmUgeDE9IjQ4NSIgeTE9IjAiIHgyPSI0ODAiIHkyPSI0MDAiIHN0cm9rZT0icmdiYSgwLDAsMCwwLjMpIiBzdHJva2Utd2lkdGg9IjYiLz4KICA8bGluZSB4MT0iNDY1IiB5MT0iMCIgeDI9IjQ2MiIgeTI9IjQwMCIgc3Ryb2tlPSJyZ2JhKDAsMCwwLDAuMykiIHN0cm9rZS13aWR0aD0iNCIvPgogIDwhLS0gQ3VydGFpbiB0b3AgdmFsYW5jZSAtLT4KICA8cGF0aCBkPSJNMCwwIFExMjUsNTAgMjUwLDMwIFEzNzUsMTAgNTAwLDUwIEw1MDAsMCBaIiBmaWxsPSIjNkIwMDAwIi8+CiAgPHBhdGggZD0iTTAsMCBRMTI1LDYwIDI1MCw0MCBRMzc1LDIwIDUwMCw2MCBMNTAwLDAgWiIgZmlsbD0iIzhCMDAwMCIvPgogIDwhLS0gR29sZCBjdXJ0YWluIHRyaW0gLS0+CiAgPHBhdGggZD0iTTAsNTAgUTEyNSw4MCAyNTAsNjAgUTM3NSw0MCA1MDAsNzAiIHN0cm9rZT0iI0U4QTAyMCIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+CiAgPCEtLSBTcG90bGlnaHRzIC0tPgogIDxyZWN0IGZpbGw9InVybCgjc3BvdGxpZ2h0MSkiIHdpZHRoPSI1MDAiIGhlaWdodD0iNDAwIi8+CiAgPHJlY3QgZmlsbD0idXJsKCNzcG90bGlnaHQyKSIgd2lkdGg9IjUwMCIgaGVpZ2h0PSI0MDAiLz4KICA8cmVjdCBmaWxsPSJ1cmwoI3Nwb3RsaWdodDMpIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIvPgogIDwhLS0gU3RhZ2UgZmxvb3IgLS0+CiAgPHJlY3QgeD0iNjAiIHk9IjMwMCIgd2lkdGg9IjM4MCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMzZDFmMDAiLz4KICA8IS0tIFN0YWdlIHdvb2QgcGxhbmtzIC0tPgogIDxsaW5lIHgxPSI2MCIgeTE9IjMyMCIgeDI9IjQ0MCIgeTI9IjMyMCIgc3Ryb2tlPSJyZ2JhKDAsMCwwLDAuMykiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxsaW5lIHgxPSI2MCIgeTE9IjM0MCIgeDI9IjQ0MCIgeTI9IjM0MCIgc3Ryb2tlPSJyZ2JhKDAsMCwwLDAuMykiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxsaW5lIHgxPSI2MCIgeTE9IjM2MCIgeDI9IjQ0MCIgeTI9IjM2MCIgc3Ryb2tlPSJyZ2JhKDAsMCwwLDAuMykiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwhLS0gU3RhZ2UgZWRnZSBnb2xkIC0tPgogIDxyZWN0IHg9IjYwIiB5PSIyOTgiIHdpZHRoPSIzODAiIGhlaWdodD0iNSIgZmlsbD0iI0U4QTAyMCIvPgogIDwhLS0gU3BvdGxpZ2h0IGJlYW1zIGZyb20gdG9wIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTcwLDAgMTQwLDMwMCAyMDAsMzAwIiBmaWxsPSJyZ2JhKDI1NSwyMjAsMTAwLDAuMDgpIi8+CiAgPHBvbHlnb24gcG9pbnRzPSIyNTAsMCAyMjAsMzAwIDI4MCwzMDAiIGZpbGw9InJnYmEoMTAwLDE4MCwyNTUsMC4wNykiLz4KICA8cG9seWdvbiBwb2ludHM9IjMzMCwwIDMwMCwzMDAgMzYwLDMwMCIgZmlsbD0icmdiYSgyNTUsMTAwLDIwMCwwLjA3KSIvPgogIDwhLS0gU3BvdGxpZ2h0IGNpcmNsZXMgb24gc3RhZ2UgLS0+CiAgPGVsbGlwc2UgY3g9IjE3MCIgY3k9IjI5MCIgcng9IjUwIiByeT0iMTQiIGZpbGw9InJnYmEoMjU1LDIyMCwxMDAsMC4zKSIvPgogIDxlbGxpcHNlIGN4PSIyNTAiIGN5PSIyOTAiIHJ4PSI1MCIgcnk9IjE0IiBmaWxsPSJyZ2JhKDEwMCwxODAsMjU1LDAuMjUpIi8+CiAgPGVsbGlwc2UgY3g9IjMzMCIgY3k9IjI5MCIgcng9IjUwIiByeT0iMTQiIGZpbGw9InJnYmEoMjU1LDEwMCwyMDAsMC4yNSkiLz4KICA8IS0tIERhbmNlciAxIC0gYXJtcyB1cCAtLT4KICA8Y2lyY2xlIGN4PSIxNzAiIGN5PSIyNDAiIHI9IjIwIiBmaWxsPSIjRkJCRjhBIi8+CiAgPGVsbGlwc2UgY3g9IjE3MCIgY3k9IjI3MiIgcng9IjE2IiByeT0iMjgiIGZpbGw9IiNFOEEwMjAiLz4KICA8IS0tIERyZXNzIC0tPgogIDxwYXRoIGQ9Ik0xNTUsMjY4IFExNTAsMzEwIDE0MCwzMDUgUTE1NSwyODUgMTcwLDMwMCBRMTg1LDI4NSAyMDAsMzA1IFExOTAsMzEwIDE4NSwyNjggWiIgZmlsbD0iI0U4QTAyMCIvPgogIDwhLS0gQXJtcyB1cCAtLT4KICA8bGluZSB4MT0iMTU1IiB5MT0iMjU4IiB4Mj0iMTMwIiB5Mj0iMjI4IiBzdHJva2U9IiNGQkJGOEEiIHN0cm9rZS13aWR0aD0iOSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGxpbmUgeDE9IjE4NSIgeTE9IjI1OCIgeDI9IjIxMCIgeTI9IjIyOCIgc3Ryb2tlPSIjRkJCRjhBIiBzdHJva2Utd2lkdGg9IjkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxjaXJjbGUgY3g9IjE3MCIgY3k9IjIyNiIgcng9IjIwIiByeT0iMTAiIGZpbGw9IiMyQzFBMEUiLz4KICA8IS0tIERhbmNlciAyIC0gc3Bpbm5pbmcgLS0+CiAgPGNpcmNsZSBjeD0iMjUwIiBjeT0iMjM4IiByPSIyMCIgZmlsbD0iI0M2ODY0MiIvPgogIDxlbGxpcHNlIGN4PSIyNTAiIGN5PSIyNzAiIHJ4PSIxNiIgcnk9IjI4IiBmaWxsPSIjOUMyN0IwIi8+CiAgPHBhdGggZD0iTTIzNSwyNjYgUTIyOCwzMDggMjE4LDMwMyBRMjMzLDI4MyAyNTAsMjk4IFEyNjcsMjgzIDI4MiwzMDMgUTI3MiwzMDggMjY1LDI2NiBaIiBmaWxsPSIjOUMyN0IwIi8+CiAgPGxpbmUgeDE9IjIzNSIgeTE9IjI1NCIgeDI9IjIxNSIgeTI9IjIzNiIgc3Ryb2tlPSIjQzY4NjQyIiBzdHJva2Utd2lkdGg9IjkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxsaW5lIHgxPSIyNjUiIHkxPSIyNTQiIHgyPSIyODUiIHkyPSIyMzYiIHN0cm9rZT0iI0M2ODY0MiIgc3Ryb2tlLXdpZHRoPSI5IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8ZWxsaXBzZSBjeD0iMjUwIiBjeT0iMjI0IiByeD0iMjAiIHJ5PSIxMCIgZmlsbD0iIzFhMGUwNSIvPgogIDwhLS0gRGFuY2VyIDMgLSBwb3NlIC0tPgogIDxjaXJjbGUgY3g9IjMzMCIgY3k9IjI0MCIgcj0iMjAiIGZpbGw9IiNGQkJGOEEiLz4KICA8ZWxsaXBzZSBjeD0iMzMwIiBjeT0iMjcyIiByeD0iMTYiIHJ5PSIyOCIgZmlsbD0iI0U1MzkzNSIvPgogIDxwYXRoIGQ9Ik0zMTUsMjY4IFEzMDgsMzEwIDI5OCwzMDUgUTMxMywyODUgMzMwLDMwMCBRMzQ3LDI4NSAzNjIsMzA1IFEzNTIsMzEwIDM0NSwyNjggWiIgZmlsbD0iI0U1MzkzNSIvPgogIDxsaW5lIHgxPSIzMTUiIHkxPSIyNTQiIHgyPSIyOTUiIHkyPSIyNjQiIHN0cm9rZT0iI0ZCQkY4QSIgc3Ryb2tlLXdpZHRoPSI5IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8bGluZSB4MT0iMzQ1IiB5MT0iMjU0IiB4Mj0iMzcwIiB5Mj0iMjMwIiBzdHJva2U9IiNGQkJGOEEiIHN0cm9rZS13aWR0aD0iOSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGVsbGlwc2UgY3g9IjMzMCIgY3k9IjIyNiIgcng9IjIwIiByeT0iMTAiIGZpbGw9IiMyQzFBMEUiLz4KICA8IS0tIEF1ZGllbmNlIHNpbGhvdWV0dGVzIC0tPgogIDxlbGxpcHNlIGN4PSI4MCIgY3k9IjM5MCIgcng9IjIwIiByeT0iMjAiIGZpbGw9IiMwYTAxMTgiLz4KICA8ZWxsaXBzZSBjeD0iMTIwIiBjeT0iMzg3IiByeD0iMjAiIHJ5PSIyMCIgZmlsbD0iIzBhMDExOCIvPgogIDxlbGxpcHNlIGN4PSIxNjAiIGN5PSIzOTIiIHJ4PSIyMCIgcnk9IjIwIiBmaWxsPSIjMGEwMTE4Ii8+CiAgPGVsbGlwc2UgY3g9IjM0MCIgY3k9IjM5MCIgcng9IjIwIiByeT0iMjAiIGZpbGw9IiMwYTAxMTgiLz4KICA8ZWxsaXBzZSBjeD0iMzgwIiBjeT0iMzg3IiByeD0iMjAiIHJ5PSIyMCIgZmlsbD0iIzBhMDExOCIvPgogIDxlbGxpcHNlIGN4PSI0MjAiIGN5PSIzOTIiIHJ4PSIyMCIgcnk9IjIwIiBmaWxsPSIjMGEwMTE4Ii8+CiAgPCEtLSBSYWlzZWQgaGFuZHMgYXVkaWVuY2UgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iMzcyIiB4Mj0iNjgiIHkyPSIzNTIiIHN0cm9rZT0iIzBhMDExOCIgc3Ryb2tlLXdpZHRoPSI1Ii8+CiAgPGxpbmUgeDE9IjEyMCIgeTE9IjM3MCIgeDI9IjEzMiIgeTI9IjM1MCIgc3Ryb2tlPSIjMGEwMTE4IiBzdHJva2Utd2lkdGg9IjUiLz4KICA8bGluZSB4MT0iMzgwIiB5MT0iMzcwIiB4Mj0iMzY4IiB5Mj0iMzUwIiBzdHJva2U9IiMwYTAxMTgiIHN0cm9rZS13aWR0aD0iNSIvPgogIDxsaW5lIHgxPSI0MjAiIHkxPSIzNzIiIHgyPSI0MzIiIHkyPSIzNTIiIHN0cm9rZT0iIzBhMDExOCIgc3Ryb2tlLXdpZHRoPSI1Ii8+CiAgPCEtLSBTdGFycyAvIHNwYXJrbGVzIG9uIHN0YWdlIC0tPgogIDx0ZXh0IHg9IjEwMCIgeT0iMjAwIiBmb250LXNpemU9IjE2IiBmaWxsPSIjRThBMDIwIiBvcGFjaXR5PSIwLjciPuKcpjwvdGV4dD4KICA8dGV4dCB4PSIzOTAiIHk9IjE4MCIgZm9udC1zaXplPSIxMiIgZmlsbD0iI0Y1QzI1QSIgb3BhY2l0eT0iMC42Ij7inKY8L3RleHQ+CiAgPHRleHQgeD0iMjIwIiB5PSIxNzAiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNFOEEwMjAiIG9wYWNpdHk9IjAuNSI+4pymPC90ZXh0PgogIDwhLS0gR29sZCB0b3AgYmFyIC0tPgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI1MDAiIGhlaWdodD0iNCIgZmlsbD0iI0U4QTAyMCIgb3BhY2l0eT0iMC44Ii8+Cjwvc3ZnPg==" alt="Cultural Stage"/>
+        <div class="photo-overlay"><span class="photo-tag">🎭 Cultural Events</span></div>
+      </div>
+
+      <div class="photo-card card4">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNTAwIDQwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJza3kiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMWE2YWJmIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNGE5ZmUwIi8+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYndhbGwiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZjBlOGQ4Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZDRjNGEwIi8+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3Jhc3MiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNENBRjUwIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMkU3RDMyIi8+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0id2luZG93X2ciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjODdDRUVCIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNGE5MGQ5Ii8+PC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPCEtLSBTa3kgLS0+CiAgPHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9InVybCgjYnNreSkiLz4KICA8IS0tIENsb3VkcyAtLT4KICA8ZWxsaXBzZSBjeD0iODAiIGN5PSI2MCIgcng9IjU1IiByeT0iMjAiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIvPgogIDxlbGxpcHNlIGN4PSIxMTAiIGN5PSI1MiIgcng9IjM4IiByeT0iMTgiIGZpbGw9IndoaXRlIi8+CiAgPGVsbGlwc2UgY3g9IjU1IiBjeT0iNTciIHJ4PSIzMCIgcnk9IjE0IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuODUpIi8+CiAgPGVsbGlwc2UgY3g9IjM1MCIgY3k9IjUwIiByeD0iNjAiIHJ5PSIyMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjg1KSIvPgogIDxlbGxpcHNlIGN4PSIzODUiIGN5PSI0MyIgcng9IjQwIiByeT0iMTgiIGZpbGw9IndoaXRlIi8+CiAgPCEtLSBTdW4gLS0+CiAgPGNpcmNsZSBjeD0iNDQwIiBjeT0iNTUiIHI9IjMyIiBmaWxsPSIjRkZENzAwIiBvcGFjaXR5PSIwLjkiLz4KICA8Y2lyY2xlIGN4PSI0NDAiIGN5PSI1NSIgcj0iMjQiIGZpbGw9IiNGRkU0NGQiLz4KICA8IS0tIFN1biByYXlzIC0tPgogIDxsaW5lIHgxPSI0NDAiIHkxPSIxMyIgeDI9IjQ0MCIgeTI9IjUiIHN0cm9rZT0iI0ZGRDcwMCIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIwLjciLz4KICA8bGluZSB4MT0iNDY4IiB5MT0iMjciIHgyPSI0NzQiIHkyPSIyMSIgc3Ryb2tlPSIjRkZENzAwIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9IjAuNyIvPgogIDxsaW5lIHgxPSI0ODIiIHkxPSI1NSIgeDI9IjQ5MCIgeTI9IjU1IiBzdHJva2U9IiNGRkQ3MDAiIHN0cm9rZS13aWR0aD0iMyIgb3BhY2l0eT0iMC43Ii8+CiAgPGxpbmUgeDE9IjQ2OCIgeTE9IjgzIiB4Mj0iNDc0IiB5Mj0iODkiIHN0cm9rZT0iI0ZGRDcwMCIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIwLjciLz4KICA8bGluZSB4MT0iNDEyIiB5MT0iMjciIHgyPSI0MDYiIHkyPSIyMSIgc3Ryb2tlPSIjRkZENzAwIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9IjAuNyIvPgogIDwhLS0gTWFpbiBidWlsZGluZyAtLT4KICA8cmVjdCB4PSI2MCIgeT0iMTMwIiB3aWR0aD0iMzgwIiBoZWlnaHQ9IjIyMCIgZmlsbD0idXJsKCNid2FsbCkiLz4KICA8IS0tIEJ1aWxkaW5nIHNoYWRvdyAtLT4KICA8cmVjdCB4PSI2MCIgeT0iMTMwIiB3aWR0aD0iMzgwIiBoZWlnaHQ9IjEwIiBmaWxsPSJyZ2JhKDAsMCwwLDAuMSkiLz4KICA8IS0tIFJvb2YgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSI0MCwxMzAgMjUwLDYwIDQ2MCwxMzAiIGZpbGw9IiM4QjNBM0EiLz4KICA8cG9seWdvbiBwb2ludHM9IjYwLDEzMCAyNTAsNzAgNDQwLDEzMCIgZmlsbD0iI0E4NDQ0NCIvPgogIDwhLS0gUm9vZiByaWRnZSBnb2xkIC0tPgogIDxsaW5lIHgxPSIyNTAiIHkxPSI2MCIgeDI9IjI1MCIgeTI9IjEzMCIgc3Ryb2tlPSIjRThBMDIwIiBzdHJva2Utd2lkdGg9IjMiLz4KICA8cG9seWdvbiBwb2ludHM9IjI0MCw2NSAyNTAsNTAgMjYwLDY1IiBmaWxsPSIjRThBMDIwIi8+CiAgPCEtLSBGbGFnIG9uIHRvcCAtLT4KICA8cmVjdCB4PSIyNDgiIHk9IjMwIiB3aWR0aD0iMyIgaGVpZ2h0PSIyNSIgZmlsbD0iIzY2NiIvPgogIDxyZWN0IHg9IjI1MSIgeT0iMzAiIHdpZHRoPSIyMiIgaGVpZ2h0PSIxNiIgZmlsbD0iI0U4QTAyMCIvPgogIDxsaW5lIHgxPSIyNTEiIHkxPSIzOCIgeDI9IjI3MyIgeTI9IjM4IiBzdHJva2U9IiMwRDI0NTQiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwhLS0gU2Nob29sIG5hbWUgYm9hcmQgLS0+CiAgPHJlY3QgeD0iMTUwIiB5PSIxNDAiIHdpZHRoPSIyMDAiIGhlaWdodD0iNDAiIHJ4PSI2IiBmaWxsPSIjMEQyNDU0Ii8+CiAgPHJlY3QgeD0iMTU0IiB5PSIxNDQiIHdpZHRoPSIxOTIiIGhlaWdodD0iMzIiIHJ4PSI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNFOEEwMjAiIHN0cm9rZS13aWR0aD0iMiIvPgogIDx0ZXh0IHg9IjI1MCIgeT0iMTU4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIxMSIgZmlsbD0iI0U4QTAyMCIgZm9udC13ZWlnaHQ9ImJvbGQiPkhPUklaT048L3RleHQ+CiAgPHRleHQgeD0iMjUwIiB5PSIxNzIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjExIiBmaWxsPSIjRThBMDIwIiBmb250LXdlaWdodD0iYm9sZCI+QUNBREVNWTwvdGV4dD4KICA8IS0tIFdpbmRvd3Mgcm93IDEgLS0+CiAgPHJlY3QgeD0iODAiIHk9IjE5NSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjUwIiByeD0iNSIgZmlsbD0idXJsKCN3aW5kb3dfZykiIHN0cm9rZT0iI2NjYyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGxpbmUgeDE9IjExMCIgeTE9IjE5NSIgeDI9IjExMCIgeTI9IjI0NSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNSkiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGxpbmUgeDE9IjgwIiB5MT0iMjIwIiB4Mj0iMTQwIiB5Mj0iMjIwIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC41KSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cmVjdCB4PSI4MCIgeT0iMTk1IiB3aWR0aD0iNjAiIGhlaWdodD0iNTAiIHJ4PSI1IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjAwLDAuMikiLz4KICA8cmVjdCB4PSIxODAiIHk9IjE5NSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjUwIiByeD0iNSIgZmlsbD0idXJsKCN3aW5kb3dfZykiIHN0cm9rZT0iI2NjYyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGxpbmUgeDE9IjIxMCIgeTE9IjE5NSIgeDI9IjIxMCIgeTI9IjI0NSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNSkiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGxpbmUgeDE9IjE4MCIgeTE9IjIyMCIgeDI9IjI0MCIgeTI9IjIyMCIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNSkiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHJlY3QgeD0iMjYwIiB5PSIxOTUiIHdpZHRoPSI2MCIgaGVpZ2h0PSI1MCIgcng9IjUiIGZpbGw9InVybCgjd2luZG93X2cpIiBzdHJva2U9IiNjY2MiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxsaW5lIHgxPSIyOTAiIHkxPSIxOTUiIHgyPSIyOTAiIHkyPSIyNDUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjUpIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxsaW5lIHgxPSIyNjAiIHkxPSIyMjAiIHgyPSIzMjAiIHkyPSIyMjAiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjUpIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxyZWN0IHg9IjM2MCIgeT0iMTk1IiB3aWR0aD0iNjAiIGhlaWdodD0iNTAiIHJ4PSI1IiBmaWxsPSJ1cmwoI3dpbmRvd19nKSIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8bGluZSB4MT0iMzkwIiB5MT0iMTk1IiB4Mj0iMzkwIiB5Mj0iMjQ1IiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC41KSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8bGluZSB4MT0iMzYwIiB5MT0iMjIwIiB4Mj0iNDIwIiB5Mj0iMjIwIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC41KSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8IS0tIFdpbmRvd3Mgcm93IDIgLS0+CiAgPHJlY3QgeD0iODAiIHk9IjI2NSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjUwIiByeD0iNSIgZmlsbD0idXJsKCN3aW5kb3dfZykiIHN0cm9rZT0iI2NjYyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGxpbmUgeDE9IjExMCIgeTE9IjI2NSIgeDI9IjExMCIgeTI9IjMxNSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNSkiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGxpbmUgeDE9IjgwIiB5MT0iMjkwIiB4Mj0iMTQwIiB5Mj0iMjkwIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC41KSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cmVjdCB4PSIzNjAiIHk9IjI2NSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjUwIiByeD0iNSIgZmlsbD0idXJsKCN3aW5kb3dfZykiIHN0cm9rZT0iI2NjYyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGxpbmUgeDE9IjM5MCIgeTE9IjI2NSIgeDI9IjM5MCIgeTI9IjMxNSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNSkiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGxpbmUgeDE9IjM2MCIgeTE9IjI5MCIgeDI9IjQyMCIgeTI9IjI5MCIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNSkiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPCEtLSBNYWluIGVudHJhbmNlIGRvb3IgLS0+CiAgPHJlY3QgeD0iMjAwIiB5PSIyODAiIHdpZHRoPSIxMDAiIGhlaWdodD0iNzAiIHJ4PSI4IiBmaWxsPSIjNUMzQTFFIi8+CiAgPHJlY3QgeD0iMjA1IiB5PSIyODUiIHdpZHRoPSI0MCIgaGVpZ2h0PSI2MCIgcng9IjQiIGZpbGw9IiM3QjRFMjgiLz4KICA8cmVjdCB4PSIyNTUiIHk9IjI4NSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjYwIiByeD0iNCIgZmlsbD0iIzdCNEUyOCIvPgogIDwhLS0gRG9vciBhcmNoIC0tPgogIDxwYXRoIGQ9Ik0yMDAsMjgwIFEyNTAsMjU1IDMwMCwyODAiIGZpbGw9IiNBMDUyMkQiLz4KICA8IS0tIERvb3IgaGFuZGxlcyAtLT4KICA8Y2lyY2xlIGN4PSIyNDgiIGN5PSIzMTgiIHI9IjQiIGZpbGw9IiNFOEEwMjAiLz4KICA8Y2lyY2xlIGN4PSIyNTIiIGN5PSIzMTgiIHI9IjQiIGZpbGw9IiNFOEEwMjAiLz4KICA8IS0tIFBpbGxhcnMgLS0+CiAgPHJlY3QgeD0iMTg1IiB5PSIyMTAiIHdpZHRoPSIxOCIgaGVpZ2h0PSIxNDAiIGZpbGw9IiNlMGQwYjAiLz4KICA8cmVjdCB4PSIyOTciIHk9IjIxMCIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2UwZDBiMCIvPgogIDxlbGxpcHNlIGN4PSIxOTQiIGN5PSIyMTAiIHJ4PSIxMiIgcnk9IjYiIGZpbGw9IiNkNGM0YTAiLz4KICA8ZWxsaXBzZSBjeD0iMzA2IiBjeT0iMjEwIiByeD0iMTIiIHJ5PSI2IiBmaWxsPSIjZDRjNGEwIi8+CiAgPCEtLSBTdGVwcyAtLT4KICA8cmVjdCB4PSIxNjAiIHk9IjM0OCIgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxMCIgcng9IjMiIGZpbGw9IiNjOGI4ODgiLz4KICA8cmVjdCB4PSIxNzAiIHk9IjM1OCIgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxMCIgcng9IjMiIGZpbGw9IiNkNGM0YTAiLz4KICA8cmVjdCB4PSIxODAiIHk9IjM2OCIgd2lkdGg9IjE0MCIgaGVpZ2h0PSIxMCIgcng9IjMiIGZpbGw9IiNjOGI4ODgiLz4KICA8IS0tIEdyYXNzIC0tPgogIDxyZWN0IHg9IjAiIHk9IjM1MCIgd2lkdGg9IjUwMCIgaGVpZ2h0PSI1MCIgZmlsbD0idXJsKCNncmFzcykiLz4KICA8IS0tIFBhdGggdG8gc2Nob29sIC0tPgogIDxwYXRoIGQ9Ik0xODAsNDAwIFEyMjAsMzcwIDIzMCwzNTAgTDI3MCwzNTAgUTI4MCwzNzAgMzIwLDQwMCBaIiBmaWxsPSIjYzhiODg4Ii8+CiAgPCEtLSBUcmVlcyAtLT4KICA8cmVjdCB4PSIzMCIgeT0iMjgwIiB3aWR0aD0iMTIiIGhlaWdodD0iNzAiIGZpbGw9IiM1QzNBMUUiLz4KICA8ZWxsaXBzZSBjeD0iMzYiIGN5PSIyNjUiIHJ4PSIzMCIgcnk9IjM1IiBmaWxsPSIjMkU3RDMyIi8+CiAgPGVsbGlwc2UgY3g9IjM2IiBjeT0iMjU1IiByeD0iMjIiIHJ5PSIyOCIgZmlsbD0iIzM4OEUzQyIvPgogIDxyZWN0IHg9IjQ1NSIgeT0iMjgwIiB3aWR0aD0iMTIiIGhlaWdodD0iNzAiIGZpbGw9IiM1QzNBMUUiLz4KICA8ZWxsaXBzZSBjeD0iNDYxIiBjeT0iMjY1IiByeD0iMzAiIHJ5PSIzNSIgZmlsbD0iIzJFN0QzMiIvPgogIDxlbGxpcHNlIGN4PSI0NjEiIGN5PSIyNTUiIHJ4PSIyMiIgcnk9IjI4IiBmaWxsPSIjMzg4RTNDIi8+CiAgPCEtLSBGbG93ZXJzIGluIGdhcmRlbiAtLT4KICA8Y2lyY2xlIGN4PSIxNTAiIGN5PSIzNTgiIHI9IjUiIGZpbGw9IiNGRjUyNTIiLz4KICA8Y2lyY2xlIGN4PSIxNjUiIGN5PSIzNTQiIHI9IjQiIGZpbGw9IiNFOEEwMjAiLz4KICA8Y2lyY2xlIGN4PSIzNDAiIGN5PSIzNTgiIHI9IjUiIGZpbGw9IiNGRjUyNTIiLz4KICA8Y2lyY2xlIGN4PSIzNTUiIGN5PSIzNTQiIHI9IjQiIGZpbGw9IiNFOEEwMjAiLz4KICA8IS0tIEdvbGQgdG9wIGJhciAtLT4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQiIGZpbGw9IiNFOEEwMjAiIG9wYWNpdHk9IjAuOCIvPgo8L3N2Zz4=" alt="School Campus"/>
+        <div class="photo-overlay"><span class="photo-tag">🏫 Our Campus</span></div>
+      </div>
+
+      <div class="collage-badge">
+        <div class="collage-badge-ring">
+          <span class="collage-badge-num">25</span>
+          <span class="collage-badge-txt">Years of<br>Excellence</span>
+        </div>
+      </div>
+
+      <div class="spark s1"></div>
+      <div class="spark s2"></div>
+      <div class="spark s3"></div>
+      <div class="spark s4"></div>
+
+    </div>
+  </div>
+
+
+</section>
+
+<div class="divider-down">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60">
+    <path d="M0,0 L1440,0 L1440,60 Q720,0 0,60 Z" fill="#FFFFFF"/>
+  </svg>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-eyebrow">Our Story</div>
+  <div class="section-title">More than a school —<br/>a community of excellence</div>
+  <div class="about-grid reveal">
+    <div class="about-visual">
+      <div class="about-visual-inner">
+        <div class="about-visual-icon">🏫</div>
+        <h3>Jaimini Public School</h3>
+        <p>Hiriyur's most trusted<br/>institution since 1999</p>
+      </div>
+      <div class="about-badge-float">
+        <strong>#1</strong>
+        <span>Ranked in Telangana<br/>3 years running</span>
+      </div>
+    </div>
+    <div>
+      <p class="section-sub" style="margin-bottom:32px;">Founded in 1999, Jaimini Public School has been a beacon of academic excellence and character development in Hiriyur, Chitradurga district. We combine rigorous curriculum with a nurturing environment — because grades alone do not define a child's future.</p>
+      <div class="about-points">
+        <div class="about-point">
+          <div class="point-icon">🎓</div>
+          <div class="point-text">
+            <h4>CBSE Curriculum with IB Enrichment</h4>
+            <p>Nationally recognized board curriculum enhanced with international best practices, project-based learning, and critical thinking modules.</p>
+          </div>
+        </div>
+        <div class="about-point">
+          <div class="point-icon">🏆</div>
+          <div class="point-text">
+            <h4>Holistic Development</h4>
+            <p>Beyond textbooks — sports, arts, robotics, debate, and 50+ co-curricular activities to shape well-rounded human beings.</p>
+          </div>
+        </div>
+        <div class="about-point">
+          <div class="point-icon">🤝</div>
+          <div class="point-text">
+            <h4>Inclusive & Safe Environment</h4>
+            <p>A zero-tolerance anti-bullying policy, counselling support, and an open-door culture where every student feels seen and valued.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="section-eyebrow">Academics</div>
+  <div class="section-title">Programs designed for<br/>the real world</div>
+  <div class="section-sub">Every stream is taught by subject experts and backed by hands-on learning, lab access, and career guidance.</div>
+  <div class="programs-grid reveal">
+    <div class="prog-card">
+      <div class="prog-icon">🔬</div>
+      <h3>Science & Technology</h3>
+      <p>Physics, Chemistry, Biology, and Mathematics taught with advanced lab infrastructure, research projects, and Olympiad preparation.</p>
+      <span class="prog-tag">Classes IX – XII</span>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">📊</div>
+      <h3>Commerce & Finance</h3>
+      <p>Accountancy, Economics, Business Studies, and Data Analytics with real-world case studies and stock market simulation labs.</p>
+      <span class="prog-tag">Classes IX – XII</span>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">🎨</div>
+      <h3>Humanities & Arts</h3>
+      <p>History, Political Science, Psychology, Sociology, and Fine Arts with a focus on critical analysis, writing, and creative expression.</p>
+      <span class="prog-tag">Classes IX – XII</span>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">💻</div>
+      <h3>Computer Science & AI</h3>
+      <p>Python, AI/ML foundations, web development, and cyber-security. Students graduate industry-ready with portfolio projects.</p>
+      <span class="prog-tag">Classes VI – XII</span>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">⚽</div>
+      <h3>Sports Excellence</h3>
+      <p>Structured coaching in cricket, football, basketball, badminton, and athletics — state and national level tournament pathways.</p>
+      <span class="prog-tag">All Classes</span>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">🎭</div>
+      <h3>Performing Arts</h3>
+      <p>Classical dance, western music, theatre, public speaking, and annual cultural festivals — nurturing confidence on and off stage.</p>
+      <span class="prog-tag">All Classes</span>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-eyebrow">Track Record</div>
+  <div class="section-title">Numbers that speak<br/>for themselves</div>
+  <div class="section-sub">25 years of results, recognition, and record-breaking performances.</div>
+  <div class="achieve-grid reveal">
+    <div class="achieve-card"><div class="achieve-num">99.2%</div><div class="achieve-label">Class XII Board<br/>Pass Rate 2024</div></div>
+    <div class="achieve-card"><div class="achieve-num">340+</div><div class="achieve-label">IIT / NIT Selections<br/>in 5 years</div></div>
+    <div class="achieve-card"><div class="achieve-num">82</div><div class="achieve-label">National-level Sports<br/>Gold Medals</div></div>
+    <div class="achieve-card"><div class="achieve-num">50+</div><div class="achieve-label">Awards &<br/>Recognitions</div></div>
+  </div>
+  <div class="trophies reveal" style="margin-top:40px;">
+    <div class="trophy-item"><div class="trophy-icon">🥇</div><div class="trophy-text"><h4>National Science Olympiad 2024</h4><p>1st place — Team Category, New Delhi</p></div></div>
+    <div class="trophy-item"><div class="trophy-icon">🏅</div><div class="trophy-text"><h4>Best School in Karnataka 2023</h4><p>Education Excellence Awards</p></div></div>
+    <div class="trophy-item"><div class="trophy-icon">🎖️</div><div class="trophy-text"><h4>State Debate Championship 2024</h4><p>Winners — English &amp; Kannada categories</p></div></div>
+    <div class="trophy-item"><div class="trophy-icon">⚽</div><div class="trophy-text"><h4>SGFI National Football</h4><p>South Zone Champions 2024</p></div></div>
+    <div class="trophy-item"><div class="trophy-icon">🤖</div><div class="trophy-text"><h4>FIRST Robotics India</h4><p>Regional finalists, 2023 & 2024</p></div></div>
+    <div class="trophy-item"><div class="trophy-icon">🎨</div><div class="trophy-text"><h4>National Fine Arts Competition</h4><p>3 students awarded, NCERT 2024</p></div></div>
+  </div>
+</section>
+
+<!-- FACULTY -->
+<section id="faculty">
+  <div class="section-eyebrow">Our People</div>
+  <div class="section-title">Learn from the best</div>
+  <div class="section-sub">Our faculty are not just teachers — they are mentors, researchers, and champions of every student's success.</div>
+  <div class="faculty-grid reveal">
+    <div class="faculty-card">
+      <div class="faculty-avatar faculty-av-1">👨‍🏫</div>
+      <div class="faculty-info">
+        <h4>Dr. Ramesh Nair</h4>
+        <p>Head of Sciences</p>
+        <span>IIT Bombay · 18 yrs experience</span>
+      </div>
+    </div>
+    <div class="faculty-card">
+      <div class="faculty-avatar faculty-av-2">👩‍🏫</div>
+      <div class="faculty-info">
+        <h4>Ms. Priya Sharma</h4>
+        <p>Head of Humanities</p>
+        <span>Delhi University · 14 yrs experience</span>
+      </div>
+    </div>
+    <div class="faculty-card">
+      <div class="faculty-avatar faculty-av-3">👨‍💻</div>
+      <div class="faculty-info">
+        <h4>Mr. Arjun Rao</h4>
+        <p>Computer Science Lead</p>
+        <span>IIIT Hyderabad · 11 yrs experience</span>
+      </div>
+    </div>
+    <div class="faculty-card">
+      <div class="faculty-avatar faculty-av-4">👩‍🎨</div>
+      <div class="faculty-info">
+        <h4>Ms. Lakshmi Devi</h4>
+        <p>Arts & Culture Head</p>
+        <span>Kalakshetra · 20 yrs experience</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="section-eyebrow">School Life</div>
+  <div class="section-title">Always something exciting<br/>at Jaimini</div>
+  <div class="events-layout reveal">
+    <div class="event-featured">
+      <div class="event-featured-top">
+        <div class="event-feat-badge">⭐ Featured Event</div>
+        <h3>Annual Day & Prize Distribution Ceremony 2025</h3>
+        <p>Our biggest celebration of the year — showcasing student talent, felicitating toppers, and honoring the spirit of Jaimini Public School. All parents warmly invited.</p>
+      </div>
+      <div class="event-featured-meta">
+        <div class="event-meta-item">📅 <span>July 18, 2025</span></div>
+        <div class="event-meta-item">🕔 <span>4:00 PM – 8:00 PM</span></div>
+        <div class="event-meta-item">📍 <span>Main Auditorium</span></div>
+      </div>
+    </div>
+    <div class="event-list">
+      <div class="event-list-item">
+        <div class="event-date-box"><div class="dd">24</div><div class="mm">May</div></div>
+        <div class="event-list-info">
+          <h4>Inter-School Cricket Tournament</h4>
+          <p>Main Ground · 8 AM onwards</p>
+          <span class="event-cat-tag cat-sports">🏏 Sports</span>
+        </div>
+      </div>
+      <div class="event-list-item">
+        <div class="event-date-box"><div class="dd">02</div><div class="mm">Jun</div></div>
+        <div class="event-list-info">
+          <h4>Open House — Admissions 2025</h4>
+          <p>Main Hall · 10 AM – 1 PM</p>
+          <span class="event-cat-tag cat-academic">🎓 Admissions</span>
+        </div>
+      </div>
+      <div class="event-list-item">
+        <div class="event-date-box"><div class="dd">20</div><div class="mm">Jun</div></div>
+        <div class="event-list-info">
+          <h4>Kaleidoscope — Cultural Festival</h4>
+          <p>Campus-wide · Full day</p>
+          <span class="event-cat-tag cat-culture">🎭 Culture</span>
+        </div>
+      </div>
+      <div class="event-list-item">
+        <div class="event-date-box"><div class="dd">05</div><div class="mm">Jul</div></div>
+        <div class="event-list-info">
+          <h4>Class XII Farewell Evening</h4>
+          <p>Auditorium · 5 PM</p>
+          <span class="event-cat-tag cat-academic">🎓 Ceremony</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSIONS -->
+<section id="admissions">
+  <div class="section-eyebrow">Join Us</div>
+  <div class="section-title">Begin your Jaimini journey</div>
+  <div class="adm-split reveal">
+    <div>
+      <p class="section-sub" style="margin-bottom:40px;">Admissions are open for Classes VI to XII for the 2025–26 academic year. We follow a transparent, merit-based process. Seats are limited — apply early.</p>
+      <div class="adm-steps">
+        <div class="adm-step">
+          <div class="adm-step-line"><div class="adm-step-circle">1</div><div class="adm-step-connector"></div></div>
+          <div class="adm-step-content"><h4>Fill the Online Form</h4><p>Complete the inquiry form with basic student details, preferred class, and contact information.</p></div>
+        </div>
+        <div class="adm-step">
+          <div class="adm-step-line"><div class="adm-step-circle">2</div><div class="adm-step-connector"></div></div>
+          <div class="adm-step-content"><h4>Attend the Entrance Assessment</h4><p>A 60-minute aptitude test followed by a brief parent and student interaction with our academic counsellor.</p></div>
+        </div>
+        <div class="adm-step">
+          <div class="adm-step-line"><div class="adm-step-circle">3</div><div class="adm-step-connector"></div></div>
+          <div class="adm-step-content"><h4>Receive Your Offer Letter</h4><p>Results communicated within 5 working days. Selected candidates receive a formal offer letter via email.</p></div>
+        </div>
+        <div class="adm-step">
+          <div class="adm-step-line"><div class="adm-step-circle">4</div></div>
+          <div class="adm-step-content"><h4>Complete Enrollment</h4><p>Submit required documents, pay the admission fee, and collect your welcome kit. Welcome to Jaimini Public School!</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="adm-form-card">
+      <h3>Request Information</h3>
+      <p>Fill this form and our admissions team will contact you within 24 hours.</p>
+      <div class="form-row">
+        <input class="form-input" type="text" placeholder="Parent / Guardian Name"/>
+        <input class="form-input" type="text" placeholder="Student Name"/>
+        <input class="form-input" type="tel" placeholder="Mobile Number"/>
+        <input class="form-input" type="email" placeholder="Email Address"/>
+        <select class="form-input form-select">
+          <option value="" disabled selected>Applying for Class…</option>
+          <option>Class VI</option><option>Class VII</option><option>Class VIII</option>
+          <option>Class IX</option><option>Class X</option><option>Class XI</option><option>Class XII</option>
+        </select>
+        <select class="form-input form-select">
+          <option value="" disabled selected>Preferred Stream (XI/XII)</option>
+          <option>Science (PCM)</option><option>Science (PCB)</option>
+          <option>Commerce</option><option>Humanities</option>
+        </select>
+        <button class="btn-submit">Submit Inquiry →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-eyebrow">Parent Voices</div>
+  <div class="section-title">What our community says</div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Jaimini Public School transformed my daughter. She joined a shy, hesitant child and left a confident, articulate young woman with a seat at NITK Surathkal. The teachers here genuinely care.</p>
+      <div class="testi-author">
+        <div class="testi-avatar av-1">👩</div>
+        <div class="testi-meta"><h5>Sunita Reddy</h5><span>Parent of Class XII Graduate, 2024</span></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">The school's balance of academics and activities is remarkable. My son represented Karnataka in cricket AND scored 96% in boards. That balance is rare and Jaimini makes it possible.</p>
+      <div class="testi-author">
+        <div class="testi-avatar av-2">👨</div>
+        <div class="testi-meta"><h5>Venkat Prasad</h5><span>Parent of Class X Student</span></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">As alumni, I look back with so much gratitude. The values, discipline, and confidence I gained at Jaimini shaped who I am today. I'm now enrolling my own child here without a second thought.</p>
+      <div class="testi-author">
+        <div class="testi-avatar av-3">👩‍💼</div>
+        <div class="testi-meta"><h5>Meghana Iyer</h5><span>Alumni (2012) & Current Parent</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+
+  <!-- Header -->
+  <div class="loc-hero">
+    <div class="section-eyebrow">Find Us</div>
+    <div class="section-title" style="color:var(--white);">We're right here in <em style="color:var(--gold);font-style:italic;">Hiriyur</em></div>
+    <div class="section-sub" style="color:rgba(255,255,255,0.55);margin:12px auto 48px;max-width:480px;">
+      Mysore Road, behind Taha Palace — easy to reach, impossible to forget.
+    </div>
+  </div>
+
+  <!-- Full-bleed map stage -->
+  <div class="map-stage">
+
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3868.5!2d76.6167!3d13.9434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbf87969bb23b3b%3A0x15a9b052d5ec9353!2sJaimini%20Public%20School%2C%20Hiriyur!5e0!3m2!1sen!2sin!4v1716000000000!5m2!1sen!2sin"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Jaimini Public School — Hiriyur, Karnataka">
+    </iframe>
+
+    <!-- Glowing pin badge in center -->
+    <div class="map-pin-badge">
+      <div class="map-pin-ring">🏫</div>
+      <div class="map-pin-tail"></div>
+      <div class="map-pin-label">Jaimini Public School</div>
+    </div>
+
+    <!-- Floating info chips over the map -->
+    <div class="map-info-panel">
+      <div class="map-chip">
+        <div class="map-chip-icon">📍</div>
+        <div class="map-chip-text">
+          <strong>Address</strong>
+          <span>Mysore Road, Hiriyur<br/>Karnataka — 577598</span>
+        </div>
+      </div>
+      <div class="map-chip">
+        <div class="map-chip-icon">🕗</div>
+        <div class="map-chip-text">
+          <strong>School Hours</strong>
+          <span>Mon – Sat: 8 AM – 4 PM</span>
+        </div>
+      </div>
+      <div class="map-chip">
+        <div class="map-chip-icon">🚌</div>
+        <div class="map-chip-text">
+          <strong>Transport</strong>
+          <span>Bus stop & autos nearby</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA strip below map -->
+  <div class="map-cta-strip">
+    <div class="map-cta-left">
+      <span class="loc-pin-emoji">📌</span>
+      <div>
+        <h4>Jaimini Public School, Hiriyur</h4>
+        <p>Mysore Road, behind Taha Palace, Chitradurga District, Karnataka — 577598</p>
+      </div>
+    </div>
+    <div class="map-cta-right">
+      <a class="directions-btn"
+         href="https://www.google.com/maps?rlz=1C1CHBF_enIN1052IN1052&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KTs8sWmWh7A7MVOC1exSsKkV&daddr=Mysore+Road,+behind+Taha+Palace,+Hiriyur,+Karnataka+577598"
+         target="_blank" rel="noopener">
+        🗺️ Get Directions
+      </a>
+      <a class="directions-btn-ghost" href="tel:+914023456789">
+        📞 Call School
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="cta-banner-content">
+    <h2>Ready to give your child<br/>the <em>best possible</em> start?</h2>
+    <p>Seats for 2025–26 are filling up fast. Don't miss the chance to be part of the Jaimini legacy.</p>
+    <div class="cta-btns">
+      <a class="btn-gold" onclick="transitionTo('admissions')" style="cursor:pointer;">Apply Now — It's Free</a>
+      <a class="btn-ghost" href="tel:+914023456789">📞 Call Us: +91 40 2345 6789</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="nav-emblem">JPS</div>
+        <span class="footer-brand-name">Jaimini <span>Public School</span></span>
+      </div>
+      <p>Shaping minds and building futures since 1999. Hiriyur's most trusted and celebrated school, nestled in Mysore Road, behind Taha Palace, Hiriyur, Chitradurga district, Karnataka.</p>
+      <div class="footer-social">
+        <a class="social-btn" href="#" title="Facebook">f</a>
+        <a class="social-btn" href="#" title="Instagram">in</a>
+        <a class="social-btn" href="#" title="YouTube">▶</a>
+        <a class="social-btn" href="#" title="WhatsApp">w</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a onclick="transitionTo('about')" style="cursor:pointer;">About Us</a></li>
+        <li><a onclick="transitionTo('programs')" style="cursor:pointer;">Academics</a></li>
+        <li><a onclick="transitionTo('faculty')" style="cursor:pointer;">Faculty</a></li>
+        <li><a onclick="transitionTo('achievements')" style="cursor:pointer;">Achievements</a></li>
+        <li><a onclick="transitionTo('events')" style="cursor:pointer;">Events</a></li>
+        <li><a onclick="transitionTo('location')" style="cursor:pointer;">Location</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Admissions</h4>
+      <ul>
+        <li><a onclick="transitionTo('admissions')" style="cursor:pointer;">Apply Online</a></li>
+        <li><a href="#">Fee Structure</a></li>
+        <li><a href="#">Scholarships</a></li>
+        <li><a href="#">Open House</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a onclick="transitionTo('location')" style="cursor:pointer;">📍 Mysore Road, behind Taha Palace, Hiriyur — 577598</a></li>
+        <li><a href="tel:+914023456789">📞 +91 40 2345 6789</a></li>
+        <li><a href="mailto:info@horizonacademy.edu.in">✉️ info@horizonacademy.edu.in</a></li>
+        <li><a href="#">🕗 Mon–Sat: 8 AM – 4 PM</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Jaimini Public School, Hiriyur. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Student Portal</a>
+      <a href="#">Staff Login</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ── Scroll reveal ── */
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('revealed'), i * 80);
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => revealObs.observe(el));
+
+  /* ── Nav border on scroll ── */
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.borderBottomColor = window.scrollY > 60
+      ? 'rgba(56,189,248,0.35)'
+      : 'rgba(56,189,248,0.18)';
+    updateActiveNav();
+  });
+
+  /* ── Submit button ── */
+  document.querySelector('.btn-submit').addEventListener('click', function() {
+    this.textContent = '✓ Inquiry Submitted! We\'ll call you soon.';
+    this.style.background = '#0284C7';
+    this.disabled = true;
+  });
+
+  /* ══════════════════════════════════
+     SMOOTH FADE TRANSITION
+  ══════════════════════════════════ */
+  const overlay = document.getElementById('page-transition');
+  let transitioning = false;
+
+  async function transitionTo(targetId) {
+    if (transitioning) return;
+    transitioning = true;
+
+    /* 1 — fade overlay IN (navy wash covers screen) */
+    overlay.classList.remove('fade-out');
+    overlay.classList.add('fade-in');
+
+    await wait(360); /* wait for fade-in to finish */
+
+    /* 2 — jump to target while screen is covered */
+    const target = document.getElementById(targetId);
+    if (target) {
+      const top = target.getBoundingClientRect().top + window.scrollY - 72;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'instant' });
+      /* prep section for entrance animation */
+      target.classList.add('section-enter');
+      void target.offsetWidth;
+    }
+
+    /* 3 — fade overlay OUT revealing new section */
+    overlay.classList.remove('fade-in');
+    overlay.classList.add('fade-out');
+
+    await wait(380);
+
+    /* 4 — trigger section's own fade-up */
+    if (target) target.classList.add('entered');
+
+    setActiveNav(targetId);
+    transitioning = false;
+  }
+
+  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  /* ── Active nav ── */
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sectionIds = ['home','about','programs','achievements','faculty','events','admissions','testimonials','location'];
+
+  function setActiveNav(id) {
+    navLinks.forEach(link => {
+      const fn = link.getAttribute('onclick') || '';
+      link.classList.toggle('active', fn.includes("'" + id + "'"));
+    });
+  }
+
+  function updateActiveNav() {
+    let current = 'home';
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 120) current = id;
+    });
+    setActiveNav(current);
+  }
+
+  updateActiveNav();
+</script>
+</body>
+</html>
