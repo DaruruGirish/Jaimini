@@ -1,0 +1,292 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  PRINCIPAL
+  CLASS_TEACHER
+  STUDENT
+}
+
+enum SubjectPart {
+  A
+  B
+}
+
+enum MarkSheetStatus {
+  DRAFT
+  SUBMITTED
+  APPROVED
+  REJECTED
+}
+
+enum GrievanceStatus {
+  SENT
+  READ
+}
+
+model SchoolSettings {
+  id          String  @id @default("singleton")
+  name        String
+  tagline     String
+  address     String
+  phone       String
+  website     String
+  logoUrl     String
+  footerQuote String
+  schoolCode  String
+}
+
+model User {
+  id                    String         @id @default(cuid())
+  name                  String
+  email                 String         @unique
+  passwordHash          String
+  role                  Role
+  studentId             String?        @unique
+  student               Student?       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  passwordChangedAt     DateTime?
+  classes               SchoolClass[]
+  announcements         Announcement[]
+  grievancesHandled     Grievance[]    @relation("GrievanceTeacher")
+  appointmentsAuthored  Appointment[]  @relation("AppointmentAuthor")
+  teacherAppointments   Appointment[]  @relation("AppointmentTeacher")
+  createdAt             DateTime       @default(now())
+}
+
+model AcademicYear {
+  id          String        @id @default(cuid())
+  label       String        @unique
+  isActive    Boolean       @default(false)
+  classes     SchoolClass[]
+  enrollments Enrollment[]
+  markSheets  MarkSheet[]
+}
+
+model SchoolClass {
+  id             String            @id @default(cuid())
+  yearId         String
+  year           AcademicYear      @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  name           String
+  section        String
+  classTeacherId String?
+  classTeacher   User?             @relation(fields: [classTeacherId], references: [id], onDelete: SetNull)
+  enrollments    Enrollment[]
+  grievances     Grievance[]
+  examReleases   ExamRelease[]
+  announcements  Announcement[]
+  subjects       Subject[]
+  feeTemplate    FeeTemplateItem[]
+  appointments   Appointment[]
+  createdAt      DateTime          @default(now())
+
+  @@unique([yearId, name, section])
+}
+
+model Student {
+  id            String       @id @default(cuid())
+  admissionNo   String       @unique
+  name          String
+  fatherName    String
+  motherName    String
+  parentMobile  String       @default("")
+  photoUrl      String       @default("")
+  user          User?
+  enrollments   Enrollment[]
+  grievances    Grievance[]
+  appointments  Appointment[]
+  createdAt     DateTime      @default(now())
+}
+
+model Enrollment {
+  id         String       @id @default(cuid())
+  studentId  String
+  student    Student      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  classId    String
+  class      SchoolClass  @relation(fields: [classId], references: [id], onDelete: Cascade)
+  yearId     String
+  year       AcademicYear @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  rollNo     Int
+  markSheets MarkSheet[]
+  examCards  ExamCard[]
+  feeItems   FeeItem[]
+
+  @@unique([classId, rollNo])
+  @@unique([studentId, yearId])
+}
+
+model Subject {
+  id                 String        @id @default(cuid())
+  classId            String
+  class              SchoolClass   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  name               String
+  part               SubjectPart
+  sortOrder          Int
+  active             Boolean       @default(true)
+  syllabusUrl        String        @default("")
+  syllabusFileName   String        @default("")
+  syllabusUploadedAt DateTime?
+  markCells          MarkCell[]
+  partBCells         PartBCell[]
+
+  @@unique([classId, name, part])
+}
+
+model MarkSheet {
+  id                   String           @id @default(cuid())
+  enrollmentId         String
+  enrollment           Enrollment       @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  yearId               String
+  year                 AcademicYear     @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  status               MarkSheetStatus  @default(DRAFT)
+  attendanceWorkS1     Int?
+  attendancePresentS1  Int?
+  attendanceWorkS2     Int?
+  attendancePresentS2  Int?
+  remarks              String           @default("")
+  submittedAt          DateTime?
+  approvedAt           DateTime?
+  rejectedReason       String?
+  verificationCode     String?          @unique
+  cells                MarkCell[]
+  partBCells           PartBCell[]
+  updatedAt            DateTime         @updatedAt
+
+  @@unique([enrollmentId, yearId])
+}
+
+model MarkCell {
+  id          String    @id @default(cuid())
+  markSheetId String
+  markSheet   MarkSheet @relation(fields: [markSheetId], references: [id], onDelete: Cascade)
+  subjectId   String
+  subject     Subject   @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  fa1         Int?
+  fa2         Int?
+  sa1         Int?
+  fa3         Int?
+  fa4         Int?
+  sa2         Int?
+
+  @@unique([markSheetId, subjectId])
+}
+
+model PartBCell {
+  id          String    @id @default(cuid())
+  markSheetId String
+  markSheet   MarkSheet @relation(fields: [markSheetId], references: [id], onDelete: Cascade)
+  subjectId   String
+  subject     Subject   @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  fa01        Int?
+  fa02        Int?
+  sa01        Int?
+  fa03        Int?
+  fa04        Int?
+  sa02        Int?
+  total       Int?
+
+  @@unique([markSheetId, subjectId])
+}
+
+model Grievance {
+  id        String           @id @default(cuid())
+  studentId String
+  student   Student          @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  teacherId String
+  teacher   User             @relation("GrievanceTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
+  classId   String
+  class     SchoolClass      @relation(fields: [classId], references: [id], onDelete: Cascade)
+  subject   String
+  message   String
+  status    GrievanceStatus  @default(SENT)
+  createdAt DateTime         @default(now())
+  readAt    DateTime?
+}
+
+model Announcement {
+  id        String       @id @default(cuid())
+  authorId  String
+  author    User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  classId   String?
+  class     SchoolClass? @relation(fields: [classId], references: [id], onDelete: Cascade)
+  title     String       @default("Announcement")
+  body      String
+  imageUrl  String       @default("")
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model ExamRelease {
+  id             String          @id @default(cuid())
+  classId        String
+  class          SchoolClass     @relation(fields: [classId], references: [id], onDelete: Cascade)
+  exam           String
+  status         MarkSheetStatus @default(DRAFT)
+  rejectedReason String?
+  submittedAt    DateTime?
+  approvedAt     DateTime?
+
+  @@unique([classId, exam])
+}
+
+model ExamCard {
+  id               String     @id @default(cuid())
+  enrollmentId     String
+  enrollment       Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  exam             String
+  verificationCode String?    @unique
+
+  @@unique([enrollmentId, exam])
+}
+
+model FeeTemplateItem {
+  id         String      @id @default(cuid())
+  classId    String
+  class      SchoolClass @relation(fields: [classId], references: [id], onDelete: Cascade)
+  particular String
+  amount     Int
+  paid       Int         @default(0)
+  dueDate    String      @default("")
+  note       String      @default("")
+  sortOrder  Int         @default(0)
+}
+
+model FeeItem {
+  id           String     @id @default(cuid())
+  enrollmentId String
+  enrollment   Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  particular   String
+  amount       Int
+  paid         Int        @default(0)
+  dueDate      String     @default("")
+  note         String     @default("")
+  sortOrder    Int        @default(0)
+}
+
+enum AppointmentAudience {
+  STUDENT
+  TEACHER
+}
+
+model Appointment {
+  id        String               @id @default(cuid())
+  authorId  String
+  author    User                 @relation("AppointmentAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+  audience  AppointmentAudience
+  studentId String?
+  student   Student?             @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  teacherId String?
+  teacher   User?                @relation("AppointmentTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
+  classId   String?
+  class     SchoolClass?         @relation(fields: [classId], references: [id], onDelete: Cascade)
+  title     String
+  body      String               @default("")
+  startsAt  DateTime
+  location  String               @default("")
+  createdAt DateTime             @default(now())
+}

@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --color-navy: #0c2a5a;
+  --color-navy-mid: #163e73;
+}
+
+body {
+  font-family: var(--font-sans), "Segoe UI", sans-serif;
+}
+
+@media print {
+  nav, header, .no-print, .student-sidebar {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+  }
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  .marks-register ~ * {
+    display: none;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
